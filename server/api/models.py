@@ -15,6 +15,9 @@ class Damage(models.Model):
     # Earthquake ID
     earthquake_id = models.IntegerField(verbose_name=_("earthquake_id"))
 
+    # Damage image
+    damage_photo = models.ImageField(verbose_name=_("photo"))
+
 
 class User(models.Model):
     # User credentials
