@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Damage(models.Model):
-    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name=_("user"))
 
     # Position
     lat = models.IntegerField(verbose_name=_("latitude"))
@@ -34,3 +34,11 @@ class User(models.Model):
     # Set boolean icon and description
     is_enabled.boolean = True
     is_enabled.short_description = _("enabled")
+
+
+class TelegramUser(models.Model):
+    # Owner username
+    owner = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name=_("username"))
+
+    # Telegram connection
+    chat_id = models.IntegerField(primary_key=True, verbose_name=_("chat_id"))
