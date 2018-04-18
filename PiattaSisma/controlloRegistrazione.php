@@ -29,8 +29,7 @@
 	// se trova una riga abbiamo trovato un utente con lo stesso username!
 	if (mysqli_num_rows($result) > 0) 
 	{
-		// chiudo la connessione e mando un messaggio di errore
-		mysqli_close($conn); 
+		// mando un messaggio di errore 
 		echo "<h1><i align='center'> <font color='white'> Email già presente in database! </font> </i> </h1>";
 		echo "<h3><a href='registrazione.php'> <font color='white'> Retry </font> </a></h3>";
 	}
@@ -41,17 +40,17 @@
 		echo $comando;
 		// se ritorna false c'è un errore 
 		if (!mysqli_query($conn, $comando)){
-			echo "Inserimento fallito <br />"; 
-			echo "<a href='registrazione.php'> Si e' verificato un errore tecnico: prego riprovare. </a>";
-			mysqli_close($conn);
+			echo "<h1><i align='center'> <font color='white'> Inserimento fallito si e' verificato un errore tecnico </font> </i> </h1>";
+			echo "<h3><a href='registrazione.php'> <font color='white'> Retry </font> </a></h3>";
+			
 		}else{
 			// altrimenti inserisco i dati nel database 
-			mysqli_close($conn);
 			echo "<h1><i align='center'> <font color='white'> Registrazione effetuata, Benvenuto ".$username."! </font> </i> </h1>";
 			// accedo alla pagina inziale del sito
 			echo "<h3><a href='paginaIniziale.php'> <font color='white'> Entry </font> </a></h3>";
 		}
 	}
+	mysqli_close($conn);
 ?>
 </body>
 </html>

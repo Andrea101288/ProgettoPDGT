@@ -1,4 +1,4 @@
-<html>
+	<html>
 <head>
     <title> registrazione alla piattaforma </title>
 	<meta name="GENERATOR" content="Evrsoft First Page">
