@@ -1,4 +1,4 @@
 <?php
 session_destroy();
-header("Location: Index.php?esito=1");
+header("Location: index.php?esito=1");
 ?>
