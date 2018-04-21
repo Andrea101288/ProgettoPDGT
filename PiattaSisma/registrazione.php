@@ -20,7 +20,7 @@
       </nav>
       <form class="form-signin" method="POST" action="controlloRegistrazione.php">
         <?php
-          if(isset$_SESSION['wrong_login']) && ($_SESSION['wrong_login'] == 1) {
+          if(isset($_SESSION['wrong_login']) && ($_SESSION['wrong_login'] == 1)) {
             echo '<div class="alert alert-danger" role="alert">';
             echo 'Problema con la registrazione.<br>';
             echo 'Si prega di riprovare.';
