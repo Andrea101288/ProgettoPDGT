@@ -1,11 +1,9 @@
 """
-latest World Earthquakes info from https://earthquake.usgs.gov/
+Latest World Earthquakes info from https://earthquake.usgs.gov/
 """
 import requests
 import xml.etree.ElementTree
 from .basic_country import BasicCountry
-import pprint
-
 
 
 class LatestWorld(BasicCountry):
@@ -30,8 +28,7 @@ class LatestWorld(BasicCountry):
         if r.status_code == 200:
             # Parse XML
             e = xml.etree.ElementTree.fromstring(r.text)
-            print(e.tag)
-            
+
             # Get last update_time
             rv['updated'] = e[0][-1][0].text
 
