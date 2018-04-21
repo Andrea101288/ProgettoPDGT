@@ -5,10 +5,9 @@ from django.http import JsonResponse
 # from .models import Damage, User, TelegramUser
 from .country.all import COUNTRY_LIST
 
-
 class Earthquakes(generic.View):
     # This value is used to determinate the default period to search
-    default_days_delta = 365
+    default_days_delta = 7
 
     def get(self, request, country):
         # Return value
