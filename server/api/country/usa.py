@@ -22,46 +22,53 @@ class Usa(BasicCountry):
         # Do request
         r = requests.get(url)
 
-        # Init empty JSON
-        rv = {}
-
         # Check status
         if r.status_code == 200:
             # Parse XML
             e = xml.etree.ElementTree.fromstring(r.text)
 
+            # Init empty JSON
+            rv = {}
+
             # Get last update_time
             rv['updated'] = e[0][-1][0].text
+
+            # Init events array in JSON
+            rv['events'] = []
 
             # Loop on events
             for event in e[0]:
                 if event.tag == "{http://quakeml.org/xmlns/bed/1.2}event":
+                    # Init temporary object
+                    tmp = {}
+
                     # Get event ID
                     event_id = event.attrib['{http://anss.org/xmlns/catalog/0.1}eventid']
-
-                    # Init object
-                    rv[event_id] = {}
+                    tmp.update({'event_id': event_id})
 
                     for field in event:
                         # Get description
                         if field.tag == "{http://quakeml.org/xmlns/bed/1.2}description":
-                            rv[event_id].update({'description': field[1].text})
+                            tmp.update({'description': field[1].text})
                         # Get information from origin
                         elif field.tag == "{http://quakeml.org/xmlns/bed/1.2}origin":
                             for field2 in field:
                                 if field2.tag == "{http://quakeml.org/xmlns/bed/1.2}time":
-                                    rv[event_id].update({'time': field2[0].text})
+                                    tmp.update({'time': field2[0].text})
                                 elif field2.tag == "{http://quakeml.org/xmlns/bed/1.2}latitude":
-                                    rv[event_id].update({'latitude': field2[0].text})
+                                    tmp.update({'latitude': field2[0].text})
                                 elif field2.tag == "{http://quakeml.org/xmlns/bed/1.2}longitude":
-                                    rv[event_id].update({'longitude': field2[0].text})
+                                    tmp.update({'longitude': field2[0].text})
                                 elif field2.tag == "{http://quakeml.org/xmlns/bed/1.2}depth":
-                                    rv[event_id].update({'depth': field2[0].text})
+                                    tmp.update({'depth': field2[0].text})
                         # Get magnitude
                         elif field.tag == "{http://quakeml.org/xmlns/bed/1.2}magnitude":
                             for field2 in field:
                                 if field2.tag == "{http://quakeml.org/xmlns/bed/1.2}mag":
-                                    rv[event_id].update({'magnitude': field2[0].text})
+                                    tmp.update({'magnitude': field2[0].text})
+
+                    # Append the new event
+                    rv['events'].append(tmp)
 
         # Return final JSON
         return rv
