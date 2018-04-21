@@ -1,0 +1,23 @@
+body {
+  background-image: url("../img/background.png");
+  background-size: cover;
+  background-size: contain;
+  color: white;
+  font-family: 'Raleway', sans-serif;
+}
+
+a {
+  color: white;
+}
+
+a:hover {
+  color: grey;
+  text-decoration: none;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  padding-left: 0px;
+  padding-right: 0px;
+}

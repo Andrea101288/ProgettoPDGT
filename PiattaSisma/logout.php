@@ -1,4 +1,5 @@
 <?php
-session_destroy();
-header("Location: index.php?esito=1");
+  session_start();
+  unset($_SESSION['username']);
+  header("Location: index.php");
 ?>
