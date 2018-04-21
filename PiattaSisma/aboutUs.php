@@ -1,30 +1,54 @@
 <html>
   <?php
     session_start();
-    ?>
+    if(!isset($_SESSION['username'])) {
+      header("Location: login.php");
+    }
+  ?>
   <head>
-    <title>PiattaSisma</title>
+    <title>PiattaSisma </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/signin.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
-  <body class="text-center">
-    <h5><i> Piattasisma è una piattaforma creata per un progetto da due studenti dell'università di urbino della facoltà di Informatica 
-    applicata.</i></h5>
-    <h5><i> I dati sono acquisiti da "OpenData" messi a disposizione da diversi siti tra cui : <i></h5>
-    <h5><i> l'INGV (Istituto Nazionale di Geofisica e Vulcanologia ).--><a href="http://cnt.rm.ingv.it/">Qui</a></i></h5>
-    <h5><i> Data Gov ( sito Usa ) --> <a href="https://www.data.gov">Qui</a></i></h5>
-    <h5><i> Lo scopo di questa piattaforma è di raggruppare più dati possibili e metterli a disposizione di chiunque voglia 
-    consultarli con facilità ed inoltre offre un servizio di collegamento con il proprio cellulare tramite un Bot Telegram dove è possibile
-    ricevere la lista aggiornata in tempo reale dei terremoti recentemente avvenut direttamente sul proprio cellulare e la possibilità di fare foto e inviarle direttamente tramite il
-    Bot sul sito in modo che possa essere visto dalle autorità competenti. " </i></h5>
-    <br/>
-    <input type="button" class="btn btn-black" onclick="location.href='paginaIniziale.php'" value="Home"/>
-    <br/>
-    <br/>
-    <p> PDGT Project made with ❤️ by <a href="https://github.com/Andrea101288">Andrea101288</a> and <a href="https://github.com/Radeox">Radeox</a></p>
+  <body>
+    <div class="container-fluid">
+       <div class="row">
+        <nav class="col-md-3 col-lg-2 flex-column">
+          <div class="btn-group-vertical p-3">
+            <h2><a href="paginaIniziale.php"><i>PiattaSisma</i></a></h2>
+            <button type="button" class="btn btn-info" onclick="location.href = 'aboutUs.php'">😎 About us</button>
+            <button type="button" class="btn btn-warning" onclick="location.href = '#'">👽 Website guide</button>
+            <button type="button" class="btn btn-success" onclick="location.href = '#'">🌎 Earthquakes list</button>
+            <button type="button" class="btn btn-info" onclick="location.href = '#'">🎥 Pictures</button>
+            <button type="button" class="btn btn-warning" onclick="location.href = 'contactUs.php'">📬 Contact us</button>
+            <button type="button" class="btn btn-danger" onclick="location.href = 'logout.php'">😱 Logout</button>
+          </div>
+        </nav>
+        <main role="main" class="inner cover col-md-9 col-lg-10">
+          <div class="our_textbox p-5">
+            <p>Piattasisma è una piattaforma creata per un progetto da due studenti dell'<a href="https://uniurb.it/">Università di Urbino</a> della facoltà di Informatica
+              applicata.<br>
+              I dati sono acquisiti da OpenData messi a disposizione da diversi siti tra cui:
+            </p>
+              <ul>
+                <li>INGV (Istituto Nazionale di Geofisica e Vulcanologia) ➡️ <a href="http://cnt.rm.ingv.it/">Link</a></li>
+                <li>USGS (United States Geological Survey) ➡️ <a href="https://earthquake.usgs.gov/">Link</a></li>
+                <li>Data.gov (U.S. Government’s open data) ➡️ <a href="https://www.data.gov/">Link</a></li>
+              </ul>
+            <p>
+              Lo scopo di questa piattaforma è di raggruppare più dati pubblici possibli e metterli a disposizione della comunità in un formato standard, cosi da facilitare la consultazione e
+              loro riutilizzo.<br>
+              Un'altro funzione è quella di poter segnalare danni dovuti ad eventi sismici direttamente dal sito o dal apposito BotTelgram. Questi dati saranno disponibili per eventuali
+              studi e/o a disposizione delle autorità.
+              </p>
+          </div>
+        </main>
+      </div>
+    </div>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/map_manager.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJfFfAiXYVz5GJyuiSU0ybWeq8bQuzvVE&callback=initMap"></script>
   </body>
 </html>

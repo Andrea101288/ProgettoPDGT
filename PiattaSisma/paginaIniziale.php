@@ -14,18 +14,17 @@
   <body>
     <div class="container-fluid">
        <div class="row">
-            <nav style="padding-top:15px" class="col-md-2 d-none d-md-block">
-                <a href="paginaIniziale.php" ><h2><i> PiattaSisma </i></h2></a>
-                <div class="btn-group-vertical">
-                    <input type="button" class="btn btn-info" onclick="location.href='aboutUs.php'" value="😎 About us"/>
-                    <button type="button" class="btn btn-warning">👽 Website guide</button>
-                    <button type="button" class="btn btn-success">🌎 Earthquakes list</button>
-                    <button type="button" class="btn btn-info">🎥 pictures</button>
-                    <input type="button" class="btn btn-warning" onclick="location.href='contactUs.php'" value="📬 Contact us"/>
-                    <button type="button" class="btn btn-danger"><a href="logout.php">😱 Logout</a></button>
-                </div>
-            </nav>
-        <main id="map" role="main" class="col-md-9 col-lg-10">
+        <nav class="col-md-3 col-lg-2 flex-column">
+          <div class="btn-group-vertical p-3">
+            <h2><i>PiattaSisma</i></h2>
+            <button type="button" class="btn btn-info" onclick="location.href = 'aboutUs.php'">😎 About us</button>
+            <button type="button" class="btn btn-warning" onclick="location.href = '#'">👽 Website guide</button>
+            <button type="button" class="btn btn-success" onclick="location.href = '#'">🌎 Earthquakes list</button>
+            <button type="button" class="btn btn-info" onclick="location.href = '#'">🎥 Pictures</button>
+            <button type="button" class="btn btn-warning" onclick="location.href = 'contactUs.php'">📬 Contact us</button>
+            <button type="button" class="btn btn-danger" onclick="location.href = 'logout.php'">😱 Logout</button>
+          </div>
+        </nav>
         <main id="map" role="main" class="col-md-9 col-lg-10 d-flex w-100 h-100 flex-column">
           <!-- Map goes here -->
         </main>
