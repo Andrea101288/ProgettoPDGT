@@ -11,9 +11,6 @@ class Earthquakes(generic.View):
     default_days_delta = 31
 
     def get(self, request, country):
-        # Return value
-        rv = {}
-
         # Check if reqeusted country in implemented
         if country in COUNTRY_LIST.keys():
             # Get requested country data
