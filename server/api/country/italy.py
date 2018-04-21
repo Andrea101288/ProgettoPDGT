@@ -11,7 +11,7 @@ class Italy(BasicCountry):
         """
         Costructor
         """
-        self.url = "http://webservices.ingv.it/fdsnws/event/1/query?starttime={0}&endtime={1}&minmag=2&maxmag=10&format=atom"
+        self.url = "http://webservices.ingv.it/fdsnws/event/1/query?starttime={0}&endtime={1}&minmag=2&maxmag=10"
 
     def return_json(self, start_date, end_date):
         """
@@ -31,28 +31,18 @@ class Italy(BasicCountry):
             e = xml.etree.ElementTree.fromstring(r.text)
 
             # Get last update_time
-            rv['updated'] = e[1].text
+            rv['updated'] = e[0][0][4][2].text
 
             # Loop on events
-            for event in e:
-                print(event.tag)
-                break
-                # Get event link
-                if(event.tag == '{http://www.w3.org/2005/Atom}entry'):
-                    link = event[0].text.replace('smi:', 'http://')
-
+            for event in e[0]:
+                if event.tag == "{http://quakeml.org/xmlns/bed/1.2}event":
                     # Get event ID
-                    event_id = link.split('eventId=')[1]
+                    event_id = event.attrib['publicID'].split('?eventId=')[1]
 
-                    # Do request for specific data
-                    r = requests.get(link)
-
+                    # Init object
                     rv[event_id] = {}
 
-                    # Parse new XML
-                    e = xml.etree.ElementTree.fromstring(r.text)
-
-                    for field in e[0][0]:
+                    for field in event:
                         # Get description
                         if field.tag == "{http://quakeml.org/xmlns/bed/1.2}description":
                             rv[event_id].update({'description': field[1].text})

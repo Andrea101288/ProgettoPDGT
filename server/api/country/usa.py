@@ -21,7 +21,6 @@ class Usa(BasicCountry):
 
         # Do request
         r = requests.get(url)
-        print(url)
 
         # Init empty JSON
         rv = {}
