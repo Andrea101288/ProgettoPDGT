@@ -20,6 +20,10 @@ a:hover {
   padding-right: 0px;
 }
 
+.marker_textbox {
+  color: black;
+}
+
 .our_textbox {
   font-size: 20px;
 
