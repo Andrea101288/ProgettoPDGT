@@ -22,13 +22,13 @@ class Usa(BasicCountry):
         # Do request
         r = requests.get(url)
 
+        # Init empty JSON
+        rv = {}
+
         # Check status
         if r.status_code == 200:
             # Parse XML
             e = xml.etree.ElementTree.fromstring(r.text)
-
-            # Init empty JSON
-            rv = {}
 
             # Get last update_time
             rv['updated'] = e[0][-1][0].text

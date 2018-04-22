@@ -30,9 +30,6 @@ class Italy(BasicCountry):
             # Parse XML
             e = xml.etree.ElementTree.fromstring(r.text)
 
-            # Init empty JSON
-            rv = {}
-
             # Get last update_time
             rv['updated'] = e[0][0][4][2].text
 
