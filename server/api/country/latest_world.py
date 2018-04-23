@@ -13,7 +13,7 @@ class LatestWorld(BasicCountry):
         """
         self.url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_day.quakeml"
 
-    def return_json(self, start_date, end_date):
+    def return_json(self, start_date, end_date, lon=None, lat=None, rad=None):
         """
         Return JSON formatted data
         """
@@ -68,9 +68,12 @@ class LatestWorld(BasicCountry):
                             for field2 in field:
                                 if field2.tag == "{http://quakeml.org/xmlns/bed/1.2}time":
                                     tmp['properties'].update({'time': field2[0].text})
-                                elif field2.tag == "{http://quakeml.org/xmlns/bed/1.2}latitude" or\
-                                        field2.tag == "{http://quakeml.org/xmlns/bed/1.2}longitude":
+                                elif field2.tag == "{http://quakeml.org/xmlns/bed/1.2}latitude":
                                     tmp['geometry']['coordinates'].append(float(field2[0].text))
+                                    tmp_lat = float(field2[0].text)
+                                elif field2.tag == "{http://quakeml.org/xmlns/bed/1.2}longitude":
+                                    tmp['geometry']['coordinates'].append(float(field2[0].text))
+                                    tmp_lon = float(field2[0].text)
                                 elif field2.tag == "{http://quakeml.org/xmlns/bed/1.2}depth":
                                     tmp['properties'].update({'depth': field2[0].text})
                         # Get magnitude
@@ -79,8 +82,17 @@ class LatestWorld(BasicCountry):
                                 if field2.tag == "{http://quakeml.org/xmlns/bed/1.2}mag":
                                     tmp['properties'].update({'magnitude': field2[0].text})
 
-                    # Append the new event
-                    rv['features'].append(tmp)
+                    if rad is not None and lon is not None and lat is not None:
+                        if self.is_in_range(lon, lat, tmp_lon, tmp_lat, rad):
+                            # Append the new event
+                            rv['features'].append(tmp)
+                    else:
+                        # Append the new event
+                        rv['features'].append(tmp)
 
         # Return final JSON
         return rv
+
+        # Redefine father class function
+        def is_in_range(self, lon1, lat1, lon2, lat2, radius):
+            return super(LatestWorld, self).is_in_range(lon1, lat1, lon2, lat2, radius)

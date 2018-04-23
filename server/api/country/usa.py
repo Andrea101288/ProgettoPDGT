@@ -13,7 +13,7 @@ class Usa(BasicCountry):
         """
         self.url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=xml&starttime={0}&endtime={1}"
 
-    def return_json(self, start_date, end_date):
+    def return_json(self, start_date, end_date, lon=None, lat=None, rad=None):
         """
         Return JSON formatted data
         """
@@ -70,9 +70,12 @@ class Usa(BasicCountry):
                             for field2 in field:
                                 if field2.tag == "{http://quakeml.org/xmlns/bed/1.2}time":
                                     tmp['properties'].update({'time': field2[0].text})
-                                elif field2.tag == "{http://quakeml.org/xmlns/bed/1.2}latitude" or\
-                                        field2.tag == "{http://quakeml.org/xmlns/bed/1.2}longitude":
+                                elif field2.tag == "{http://quakeml.org/xmlns/bed/1.2}latitude":
                                     tmp['geometry']['coordinates'].append(float(field2[0].text))
+                                    tmp_lat = float(field2[0].text)
+                                elif field2.tag == "{http://quakeml.org/xmlns/bed/1.2}longitude":
+                                    tmp['geometry']['coordinates'].append(float(field2[0].text))
+                                    tmp_lon = float(field2[0].text)
                                 elif field2.tag == "{http://quakeml.org/xmlns/bed/1.2}depth":
                                     tmp['properties'].update({'depth': field2[0].text})
                         # Get magnitude
@@ -81,8 +84,17 @@ class Usa(BasicCountry):
                                 if field2.tag == "{http://quakeml.org/xmlns/bed/1.2}mag":
                                     tmp['properties'].update({'magnitude': field2[0].text})
 
-                    # Append the new event
-                    rv['features'].append(tmp)
+                    if rad is not None and lon is not None and lat is not None:
+                        if self.is_in_range(lon, lat, tmp_lon, tmp_lat, rad):
+                            # Append the new event
+                            rv['features'].append(tmp)
+                    else:
+                        # Append the new event
+                        rv['features'].append(tmp)
 
         # Return final JSON
         return rv
+
+        # Redefine father class function
+        def is_in_range(self, lon1, lat1, lon2, lat2, radius):
+            return super(Usa, self).is_in_range(lon1, lat1, lon2, lat2, radius)

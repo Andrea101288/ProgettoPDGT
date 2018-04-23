@@ -17,6 +17,7 @@ class Earthquakes(generic.View):
             # Get requested country data
             req_country = COUNTRY_LIST[country]()
 
+            # Get period to seach
             if request.GET.get('endtime') is None:
                 # Get current date
                 to_day = datetime.now()
@@ -35,7 +36,20 @@ class Earthquakes(generic.View):
             to_day = urllib.parse.quote_plus(to_day.isoformat())
             from_day = urllib.parse.quote_plus(from_day.isoformat())
 
-            # Request and parse in JSON
-            rv = req_country.return_json(from_day, to_day)
+            # Check if user set latitude, longitude and radius
+            if request.GET.get('lon') is not None and\
+               request.GET.get('lat') is not None and\
+               request.GET.get('rad') is not None:
+
+                # Get position
+                lon = float(request.GET.get('lon'))
+                lat = float(request.GET.get('lat'))
+                rad = float(request.GET.get('rad'))
+
+                # Request and parse in JSON with position filter
+                rv = req_country.return_json(from_day, to_day, lon, lat, rad)
+            else:
+                # Request and parse in JSON
+                rv = req_country.return_json(from_day, to_day)
 
         return JsonResponse(rv)
