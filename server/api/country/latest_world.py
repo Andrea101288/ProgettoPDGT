@@ -25,8 +25,11 @@ class LatestWorld(BasicCountry):
 
         # Check status
         if r.status_code == 200:
-            # Parse XML
-            e = xml.etree.ElementTree.fromstring(r.text)
+            try:
+                # Parse XML
+                e = xml.etree.ElementTree.fromstring(r.text)
+            except xml.etree.ElementTree.ParseError:
+                return rv
 
             # Get last update_time
             rv['updated'] = e[0][-1][0].text
