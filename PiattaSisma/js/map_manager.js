@@ -13,19 +13,22 @@ function initMap() {
   // Richiede il JSON al server
   fetch(url)
   .then(res => res.json())
-  .then((out) => {
-    // Scorro gli eventi
-    out['events'].forEach(function(event) {
-      // Imposto le coordinate
-      var latLng = new google.maps.LatLng(event.latitude, event.longitude);
+  .then((results) => {
+    results.features.forEach(function(event) {
+      // Get coordinates
+      var coords = event.geometry.coordinates;
+      var latLng = new google.maps.LatLng(coords[1],coords[0]);
 
+      // Formatto la data
+      var date = new Date(event.properties.time);
+      
       // Aggiungo il testo del marker
       var infowindow = new google.maps.InfoWindow({
         content: '<div class="marker_textbox">' +
-                 '<p><b>Luogo:</b> ' + event.description + '</p>' +
-                 '<p><b>Magnitudine:</b> ' + event.magnitude + '</p>' +
-                 '<p><b>Profondità:</b> ' + (event.depth/1000) + 'km</p>' +
-                 '<p><b>Data:</b> ' + Date(event.time) + '</p>' +
+                 '<p><b>Luogo:</b> ' + event.properties.description + '</p>' +
+                 '<p><b>Magnitudine:</b> ' + event.properties.magnitude + '</p>' +
+                 '<p><b>Profondità:</b> ' + (event.properties.depth/1000) + 'km</p>' +
+                 '<p><b>Data:</b> ' + date + '</p>' +
                  '</div>'
       });
 
@@ -40,7 +43,7 @@ function initMap() {
       marker.addListener('click', function() {
         infowindow.open(map, marker);
       });
-    })
+    });
   })
   .catch(err => { throw err });
 }
