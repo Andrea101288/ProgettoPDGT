@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Damage, User, TelegramUser
+from .models import Damage, User, TelegramUser, TelegramSuperUser
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -39,6 +39,12 @@ class TelegramUserAdmin(admin.ModelAdmin):
     search_fields = ('owner', 'chat_id')
 
 
+class TelegramSuperUserAdmin(admin.ModelAdmin):
+    list_display = ('owner', 'chat_id')
+    search_fields = ('owner', 'chat_id')
+
+
 admin.site.register(Damage, DamageAdmin)
 admin.site.register(User, UserAdmin)
 admin.site.register(TelegramUser, TelegramUserAdmin)
+admin.site.register(TelegramSuperUser, TelegramSuperUserAdmin)
