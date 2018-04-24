@@ -2,5 +2,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('terremoti/<slug:country>', views.Earthquakes.as_view(), name='earthquake'),
+    path('earthquakes/<slug:country>', views.EarthquakesView.as_view(), name='earthquake'),
 ]

@@ -19,6 +19,12 @@ class BasicCountry(metaclass=ABCMeta):
         """
         raise NotImplemented
 
+    def search_event(self, search_id, timeout=12):
+        """
+        Search and event looping months X time (timeout)
+        """
+        raise NotImplemented
+
     def is_in_range(self, lon1, lat1, lon2, lat2, radius):
         """
         Calculate the great circle distance between two points

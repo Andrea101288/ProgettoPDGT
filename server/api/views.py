@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from .country.all import COUNTRY_LIST
 
 
-class Earthquakes(generic.View):
+class EarthquakesView(generic.View):
     # This value is used to determinate the default period to search
     default_days_delta = 7
 
@@ -16,6 +16,20 @@ class Earthquakes(generic.View):
         if country in COUNTRY_LIST.keys():
             # Get requested country data
             req_country = COUNTRY_LIST[country]()
+
+            # Get requested ID
+            if request.GET.get('id') is None:
+                # Get current date
+                search_id = ""
+            else:
+                search_id = request.GET.get('id')
+
+            # Get requested ID
+            if request.GET.get('timeout') is None:
+                # Get current date
+                timeout = None
+            else:
+                timeout = int(request.GET.get('timeout'))
 
             # Get period to seach
             if request.GET.get('endtime') is None:
@@ -48,6 +62,9 @@ class Earthquakes(generic.View):
 
                 # Request and parse in JSON with position filter
                 rv = req_country.return_json(from_day, to_day, lon, lat, rad)
+            elif request.GET.get('id') is not None:
+                # Search for given ID earthquake
+                rv = req_country.search_event(search_id, timeout)
             else:
                 # Request and parse in JSON
                 rv = req_country.return_json(from_day, to_day)
