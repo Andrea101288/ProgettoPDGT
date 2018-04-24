@@ -8,7 +8,7 @@ function initMap() {
   });
 
   // TODO: Get this dynamically from page
-  var url = 'http://localhost:8000/terremoti/italy';
+  var url = 'http://localhost:8000/earthquakes/italy';
 
   // Richiede il JSON al server
   fetch(url)
