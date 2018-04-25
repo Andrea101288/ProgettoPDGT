@@ -9,7 +9,7 @@ from .country.all import COUNTRY_LIST
 
 class EarthquakesView(generic.View):
     # This value is used to determinate the default period to search
-    default_days_delta = 7
+    default_days_delta = 90
 
     def get(self, request, country):
         # Check if reqeusted country in implemented
