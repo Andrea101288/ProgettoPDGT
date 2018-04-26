@@ -1,4 +1,5 @@
 var map;
+var markers = [];
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -6,11 +7,35 @@ function initMap() {
     zoom: 2,
     minZoom: 3,
   });
+}
 
-  // TODO: Get this dynamically from page
-  var url = 'http://localhost:8000/earthquakes/italy';
+function getMarkers() {
+  // Get radios
+  var radio = document.getElementsByName("region");
 
-  // Richiede il JSON al server
+  // Get selected radio button
+  for(var i = 0; i < radio.length; i++)
+    if(radio[i].checked)
+      break
+
+  var region = radio[i].value;
+
+  // Get date range
+  var to_day = document.getElementById("to_day").value;
+  var from_day = document.getElementById("from_day").value;
+
+  // Fill url
+  var url = 'http://localhost:8000/earthquakes/' + region;
+
+  if(from_day != "")
+    url += "?starttime=" + from_day + "&endtime=" + to_day;
+  else if(to_day != "")
+    url += "?endtime=" + to_day;
+
+  // Remove old markers
+  deleteMarkers();
+
+  // JSON request
   fetch(url)
   .then(res => res.json())
   .then((results) => {
@@ -19,10 +44,10 @@ function initMap() {
       var coords = event.geometry.coordinates;
       var latLng = new google.maps.LatLng(coords[1],coords[0]);
 
-      // Formatto la data
+      // Format date
       var date = new Date(event.properties.time);
       
-      // Aggiungo il testo del marker
+      // Add marker text
       var infowindow = new google.maps.InfoWindow({
         content: '<div class="marker_textbox">' +
                  '<p><b>Luogo:</b> ' + event.properties.description + '</p>' +
@@ -32,14 +57,17 @@ function initMap() {
                  '</div>'
       });
 
-      // Creo il marker
+      // Create new marker instance
       var marker = new google.maps.Marker({
         position: latLng,
         map: map,
         icon: "img/earthquake0.png",
       });
 
-      // Aggiungo l'evento che visualizzia il testo
+      // Add marker to array
+      markers.push(marker);
+
+      // Add onclick event to marker
       marker.addListener('click', function() {
         infowindow.open(map, marker);
       });
@@ -47,3 +75,11 @@ function initMap() {
   })
   .catch(err => { throw err });
 }
+
+function deleteMarkers() {
+  //Loop through all the markers and remove them
+  for (var i = 0; i < markers.length; i++)
+    markers[i].setMap(null);
+
+  markers = [];
+};

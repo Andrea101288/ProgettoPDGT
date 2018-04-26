@@ -22,7 +22,18 @@
             <button type="button" class="btn btn-success" onclick="location.href = '#'">🌎 Earthquakes list</button>
             <button type="button" class="btn btn-info" onclick="location.href = '#'">🎥 Pictures</button>
             <button type="button" class="btn btn-warning" onclick="location.href = 'contactUs.php'">📬 Contact us</button>
-            <button type="button" class="btn btn-danger" onclick="location.href = 'logout.php'">😱 Logout</button>
+            <button type="button" class="btn btn-danger" onclick="location.href = 'logout.php'">😱 Logout</button><br>
+            <form>
+              <b>Regione</b><br>
+              <input type="radio" name="region" value="italy" checked> Italia<br>
+              <input type="radio" name="region" value="usa"> USA<br>
+              <input type="radio" name="region" value="latest_world"> Mondo (oggi)<br>
+              <b>Data inizio</b>
+              <input type="date" id="from_day">
+              <b>Data fine</b>
+              <input type="date" id="to_day"><br><br>
+              <button type="button" class="btn btn-danger" onclick="getMarkers()">Invia</button>
+            </form>
           </div>
         </nav>
         <main id="map" role="main" class="col-md-9 col-lg-10 d-flex w-100 h-100 flex-column">
