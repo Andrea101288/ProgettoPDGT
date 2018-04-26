@@ -28,38 +28,44 @@ while (1){
         $update_id = $dati->result[0]->update_id;
         // salvo nelle variabili tutti i dati che mi interessano da salvare nel database
         $user_id = $dati->result[0]->message->from->id;
-        $chat_id = $dati->result[0]->message->chat->id;
-        $text= $dati->result[0]->message->text;    
-      
-        // creo una struttura per i miei dati
-        $dataApp = [
-        'user_id' => $user_id,
-        'chat_id' => $chat_id,
-        'text' => $text
-        ];          
+        $chat_id = $dati->result[0]->message->chat->id;   
+        $text = $dati->result[0]->message->text;            
         
-        // guardo sul database creato di firebase se c'è la chat_id
-        $memory = acquire_datas($dataApp);	        
-        
-        // se l'utente ha già inviato un messaggio 
-        if(isset($memory->$user_id)) {
-                 
-            // sovrascrivo i dati su firebase con l'ultimo messaggio
-            $memory = send_datas($dataApp, "PATCH");	
+        if(isset($text)){
+            // creo una struttura per i miei dati
+            $dataApp = [
+            'user_id' => $user_id,
+            'chat_id' => $chat_id,
+            'text' => $text
+            ]; 
             
-        }else{
+            // guardo sul database creato di firebase se c'è la chat_id
+            $memory = acquire_datas($dataApp);	        
             
-            // vuol dire che è un nuovo utente e quindi gli mando il mess di benvenuto	
-            // prendo il nome del nuovo utente per usarlo nel messaggio
-            $name = $dati->result[0]->message->from->first_name;
-            
-            // messaggio di benvenuto del nuovo utente
-            http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text= Benvenuto".$name."!"); 
-            
+            // se l'utente ha già inviato un messaggio 
+            if(isset($memory->$user_id)) {
+                
+                // acquisisco il nome dell'utente 
+                $name = $dati->result[0]->message->from->first_name;
+                // sovrascrivo i dati su firebase con l'ultimo messaggio
+                $memory = send_datas($dataApp, "PATCH");
+                
+                // messaggio di benvenuto del nuovo utente
+                http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text= Bentornato ".$name."!");
+                
+            }else{
+                
+                // vuol dire che è un nuovo utente e quindi gli mando il mess di benvenuto	
+                // prendo il nome del nuovo utente per usarlo nel messaggio
+                $name = $dati->result[0]->message->from->first_name;
+                
+                // messaggio di benvenuto del nuovo utente
+                http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text= Benvenuto".$name."!"); 
+                
+            }    
+            // salvo i dati sul database del nuovo utente
+            $memory = send_datas($dataApp, "PUT");
         }    
-        // salvo i dati sul database del nuovo utente
-        $memory = send_datas($dataApp, "PUT");
-        
         // Memorizziamo il nuovo ID update nel file
         file_put_contents($last_update_filename, $update_id);
         
@@ -86,8 +92,8 @@ while (1){
         
         }else if (isset($dati->result[0]->message->location) and $stati[(string)$chat_id] == 1) {
             
-            getTerremoti($dataApp, $memory);
-            
+            $terremoti = getTerremoti($dati, $token);   
+           
         }
     }
 } 
