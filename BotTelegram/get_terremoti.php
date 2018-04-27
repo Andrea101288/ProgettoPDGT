@@ -23,6 +23,11 @@ function getTerremoti($dati, $token){
         $magnitude = explode('"', $magnitude1);
         $depth1 = json_encode($dati_terremoto->features[$i]->properties->depth);
         $depth = explode('"', $depth1);
-        http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text= Location: ".urlencode($description[1]."\nDate: ".$time[0]."\nTime: ".$time[1]."\nMagnitude: ".$magnitude[1]."\nDepth: ".$depth[1]." mt"));
+        http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text= Location: ".
+                                                                                    urlencode($description[1].
+                                                                                          "\nDate: ".$time[0].
+                                                                                          "\nTime: ".$time[1].
+                                                                                          "\nMagnitude: ".$magnitude[1].
+                                                                                          "\nDepth: ".$depth[1]." mt"));
     }
 }     

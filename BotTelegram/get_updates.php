@@ -13,6 +13,20 @@ $last_update_filename = dirname(__FILE__) . '/last-update-id.txt';
 
 $stati = [];
 
+// importo un po di emoji codificati utf-8
+$earth = "\xF0\x9F\x8C\x8F";
+$handOk = "\xE2\x9C\x8C";
+$teeth = "\xF0\x9F\x98\xAC";
+$tongue = "\xF0\x9F\x98\x9B";
+$sos = "\xF0\x9F\x86\x98";
+$constr = "\xF0\x9F\x9A\xA7";
+$pc = "\xF0\x9F\x92\xBB";
+$gradCap = "\xF0\x9F\x8E\x93";
+$volcano = "\xF0\x9F\x8C\x8B";
+$usaFlag = "\xF0\x9F\x87\xBA\xF0\x9F\x87\xB8";
+$itaFlag = "\xF0\x9F\x87\xAE\xF0\x9F\x87\xB9";
+
+
 while (1){
     
     if(file_exists($last_update_filename)) {
@@ -78,22 +92,39 @@ while (1){
         if(isset($text)){
             
             switch($text){
-        
+                
+                case "/start":
+                
+                    // invio il messaggio di benvenuto e la spiegazione del bot 
+                    $msg = "Ciao sono".$earth." SismaBot ".$earth."\nGrazie a me puoi ottenere le location e i dati di terremoti in un raggio di 10 km da un luogo da te scelto!".$handOk."\nSono in grado di inviarti descrizioni e luoghi in cui si è verificato un sisma in qualunque parte del mondo!\n(o quasi".$teeth.")\nPer poter effettuare la ricerca ho bisogno di sapere dove ti trovi, puoi dirmelo semplicemente premendo sul tasto invia allegato selezionando la posizione\n(ricordati di attivare il GPS".$tongue."..)\n\nPer maggiori informazioni digita il comando /help ".$sos."";
+                    http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($msg)."");
+                    break;
+                    
                 case "/terremoti":
             
                     // Mando un messaggio all'utente di inviarmi la posizione
                     http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=Inviami la tua posizione..");
-                
                     // entro nello stato 1
-                    $stati[(string)$chat_id] = 1;      
-            
-                    default;
+                    $stati[(string)$chat_id] = 1;            
+                    break;
+                
+                case "/help":
+                
+                    $helpMsg = "".$earth." SismaBot ".$earth." a tua disposizione! Ecco a te i comandi:\n1) /terremoti ti permette di conoscere descrizione e località di ogni terremoto nel raggio di 10 km dalla zona da te scelta inviatami condividendo la location\n2) /danni premette di inviare posizione e descrizione di danni provocati da terremoti sull'apposito sito www.Piattasisma.com dove le utorità poi procederanno alla visione\n3) /info per avere tutte le informazioni sul Bot e sul sito collegato ad esso";
+                    // Mando un messaggio all'utente con le info per utilizzare il Bot
+                    http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($helpMsg)."");
+                    break;
+                    
+                case "/info":
+                
+                    $infoMsg = "SismaBot si collega a una piattaforma chiamata".$earth." Piattasisma ".$earth." creata per un progetto da due studenti della facoltà di Informatica applicata ".$pc." dell'Università di Urbino ".$gradCap."\n(Dawid Weglarz".$constr.$constr."Andrea Mancini)\nI dati sismici sono acquisiti da OpenData messi a disposizione da diversi siti tra cui:\nINGV (Istituto Nazionale di Geofisica e Vulcanologia)".$volcano.$itaFlag."\nUSGS (United States Geological Survey)".$usaFlag."\nDatagov (U.S. Government’s open data)".$usaFlag."";
+                    http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($infoMsg)."");
+
             }
         
         }else if (isset($dati->result[0]->message->location) and $stati[(string)$chat_id] == 1) {
             
-            $terremoti = getTerremoti($dati, $token);   
-           
+            $terremoti = getTerremoti($dati, $token);          
         }
     }
 } 
