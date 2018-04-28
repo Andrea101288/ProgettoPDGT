@@ -43,7 +43,7 @@ Gli step dell'algoritmo implementato per l'acquisione dei dati che poi verrano r
     * Viene restituito l'oggetto in formato JSON che mi interessa
  
 Gli step dell'algoritmo della post dei dati sul sito sono i seguenti:
- #// INSERIRE GLI STEP //#
+ *// INSERIRE GLI STEP //
 
 * Implementazione di una piattaforma Web(php, js, css, bootstrap) che utilizza le API descritte al punto precedente per la ricerca tra i vari OpenData e il posizionamento sulle mappe attravarso le API messe a disposizione da GoogleMaps
 La piattafroma è stata creata in PHP ed è composta in totale da ? file :
