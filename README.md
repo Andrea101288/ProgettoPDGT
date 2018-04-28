@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # 🌎 PiattaSisma 🌍� #
+=======
+# ðŸŒŽ PiattaSisma ðŸŒŽ #
+>>>>>>> 15b7ebe8ab9f6455330196a7652638e99afcfa2d
 
 -----------------------------------------------------
 
@@ -11,15 +15,16 @@
 * Andrea Mancini
   * Matricola: 276435
   * Username Github: Andrea101288
-* Dawid Węglarz
+* Dawid WÄ™glarz
   * Matricola: 277268
   * Username Github: Radeox
 
 -----------------------------------------------------
 
 ## Descrizione ##
+<<<<<<< HEAD
 
-#Il progetto � composto da 3 punti principali:#
+Il progetto � composto da 3 punti principali:
 
 * Realizzazione di API ( GET e POST ) in python 
 * Implementazione di una piattaforma Web(php, js, css, bootstrap)
@@ -27,8 +32,6 @@
 -----------------------------------------------------
 
 ## Relazione ##
-
-Il progetto � composto da 3 punti principali:
 
 * Realizzazione di API ( GET e POST ) in python per acquisizione di dati sismici da alcuni siti la quale mettono a disposizione OpenData
     * INGV (Istituto Nazionale di Geofisica e Vulcanologia) --> http://cnt.rm.ingv.it/
