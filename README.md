@@ -33,16 +33,16 @@ Il progetto è composto da 3 punti principali:
     * USGS (United States Geological Survey) --> https://earthquake.usgs.gov/
     * Data.gov (U.S. Government’s open data) --> https://www.data.gov/
     
- Gli step dell'algoritmo implementato per l'acquisione dei dati che poi verrano restituiti in formato JSON sono i seguenti:
-   * faccio la richiesta http per accedere ai dati che mi interessano
-   *  Inizializzo un oggetto JSON che dovrà restituirmi la funzione che all'inizio sarà vuoto
-   *  Controllo lo stato della richiesta e se è 200 vado avanti
-   *  Faccio il Parse dell' XML
-   *  Ora acquisisco i dati entrando in ogni sezione dell'XML prelevando quelli che mi interessano ( in ogni pagina può essere implementato in modo diverso)
+Gli step dell'algoritmo implementato per l'acquisione dei dati che poi verrano restituiti in formato JSON sono i seguenti:
+    * faccio la richiesta http per accedere ai dati che mi interessano
+    *  Inizializzo un oggetto JSON che dovrà restituirmi la funzione che all'inizio sarà vuoto
+    *  Controllo lo stato della richiesta e se è 200 vado avanti
+    *  Faccio il Parse dell' XML
+    *  Ora acquisisco i dati entrando in ogni sezione dell'XML prelevando quelli che mi interessano ( in ogni pagina può essere implementato in modo diverso)
    * Viene restituito l'oggetto in formato JSON che mi interessa
  
- Gli step dell'algoritmo della post dei dati sul sito sono i seguenti:
- * // INSERIRE GLI STEP //
+Gli step dell'algoritmo della post dei dati sul sito sono i seguenti:
+ #// INSERIRE GLI STEP //#
 
 * Implementazione di una piattaforma Web(php, js, css, bootstrap) che utilizza le API descritte al punto precedente per la ricerca tra i vari OpenData e il posizionamento sulle mappe attravarso le API messe a disposizione da GoogleMaps
 La piattafroma è stata creata in PHP ed è composta in totale da ? file :
