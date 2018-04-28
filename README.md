@@ -33,7 +33,7 @@ Il progetto è composto da 3 punti principali:
     * USGS (United States Geological Survey) --> https://earthquake.usgs.gov/
     * Data.gov (U.S. Government’s open data) --> https://www.data.gov/
     
-Gli step dell'algoritmo implementato per l'acquisione dei dati che poi verrano restituiti in formato JSON sono i seguenti:
+    * #Gli step dell'algoritmo implementato per l'acquisione dei dati che poi verrano restituiti in formato JSON sono i seguenti:#
     *  faccio la richiesta http per accedere ai dati che mi interessano
     *  Inizializzo un oggetto JSON che dovrà restituirmi la funzione che all'inizio sarà vuoto
     *  Controllo lo stato della richiesta e se è 200 vado avanti
