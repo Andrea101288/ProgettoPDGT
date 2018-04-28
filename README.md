@@ -38,8 +38,9 @@ Gli step dell'algoritmo implementato per l'acquisione dei dati che poi verrano r
     *  Inizializzo un oggetto JSON che dovrà restituirmi la funzione che all'inizio sarà vuoto
     *  Controllo lo stato della richiesta e se è 200 vado avanti
     *  Faccio il Parse dell' XML
-    *  Ora acquisisco i dati entrando in ogni sezione dell'XML prelevando quelli che mi interessano ( in ogni pagina può essere implementato in modo diverso)
-   * Viene restituito l'oggetto in formato JSON che mi interessa
+    *  Ora acquisisco i dati entrando in ogni sezione dell'XML prelevando quelli che mi interessano ( in ogni pagina può essere
+    implementato in modo diverso)
+    * Viene restituito l'oggetto in formato JSON che mi interessa
  
 Gli step dell'algoritmo della post dei dati sul sito sono i seguenti:
  #// INSERIRE GLI STEP //#
