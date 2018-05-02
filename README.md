@@ -1,5 +1,4 @@
-
-# ðŸŒŽ PiattaSisma ðŸŒŽ #
+# 🌎 PiattaSisma 🌍 #
 -----------------------------------------------------
 
 ## Progetto Piattaforme Digitali per la gestione del territorio ##
@@ -11,7 +10,7 @@
 * Andrea Mancini
   * Matricola: 276435
   * Username Github: Andrea101288
-* Dawid WÃ„â„¢glarz
+* Dawid Węglarz
   * Matricola: 277268
   * Username Github: Radeox
 
@@ -19,55 +18,52 @@
 
 ## Descrizione ##
 
-Il progetto è composto da 3 punti principali:
+Il progetto _PiattaSisma_ si pone come obbiettivo:
+* Raccogliere dati sismici da diverse fonti e resituirli in un formato standard.
+* Catalogare i danni causati da eventi sismici e dare accesso a questi dati per eventuali studi/interventi.
 
-* Realizzazione di API ( GET e POST ) in python 
-* Implementazione di una piattaforma Web(php, js, css, bootstrap)
-* Implementazione di due BotTelegram 
 -----------------------------------------------------
 
 ## Relazione ##
 
-* Realizzazione di API ( GET e POST ) in python per acquisizione di dati sismici da alcuni siti la quale mettono a disposizione OpenData tra cui:
-    * INGV (Istituto Nazionale di Geofisica e Vulcanologia) --> http://cnt.rm.ingv.it/
-    * USGS (United States Geological Survey) --> https://earthquake.usgs.gov/
-    * Data.gov (U.S. Government’s open data) --> https://www.data.gov/
-   
-Gli step dell'algoritmo implementato per l'acquisione dei dati che poi verrano restituiti in formato JSON sono i seguenti:
-        *  faccio la richiesta http per accedere ai dati che mi interessano
-        *  Inizializzo un oggetto JSON che dovrà restituirmi la funzione che all'inizio sarà vuoto
-        *  Controllo lo stato della richiesta e se è 200 vado avanti
-        *  Faccio il Parse dell' XML
-        *  Ora acquisisco i dati entrando in ogni sezione dell'XML prelevando quelli che mi interessano ( in ogni pagina può essere
-    implementato in modo diverso)
-        * Viene restituito l'oggetto in formato JSON che mi interessa
- 
-Gli step dell'algoritmo della post dei dati sul sito sono i seguenti:
- *// INSERIRE GLI STEP //
+Il progetto è composto da 3 punti principali:
+    * Realizzazione di un API (GET e POST) in Python
+    * Implementazione di una piattaforma Web (HTML, PHP, JS, CSS)
+    * Implementazione di due BotTelegram
 
-* Implementazione di una piattaforma Web(php, js, css, bootstrap) che utilizza le API descritte al punto precedente per la ricerca tra i vari OpenData e il posizionamento sulle mappe attravarso le API messe a disposizione da GoogleMaps
-La piattafroma è stata creata in PHP ed è composta in totale da ? file :
-    * Pagina di index, pagina iniziale della piattaforma dove si deve scegliere se fare il login o registrarsi
-    * Pagina di registrazione dove vengono acquisiti i dati dell'utente ch voglia iscriversi al sito.
-    * Pagina controlloRegistrazione dove si effettuano i controlli per verificare se le credenziali che si vogliono registrare non siano già esistenti ed in caso si restituisce errore e si viene rimandati alla pagina principale. Se tutte le verifiche vanno a buon fine, si inseriscono i dati dell'utente in un Database.
-    * Pagina di login dove vengono acquisiti i dati dell'utente ch voglia entrare nel sito.
-    * Pagina controlloLogin dove si effettuano i controlli per verificare se le credenziali sono corrette per accedere, in caso contrario si viene rimandati alla pagina principale.
-    * Pagina Contact us dove si possono trovare i contatti dei creatori del sito per qualsiasi evenienza
-    * Pagina AboutUs dove si può leggere una piccola descrizione del progetto e il motivo per la quale è stato creato
-    * PaginaInziale la pagina principale della piattaforma dove appare una mappa di Google Maps, una serie di filtri per effettuare alcune ricerche di location di terremoti che poi appariranno sulla mappa con una descrizione e il menù delle varie pagine.
+* Realizzazione di un API (GET e POST) in Python per acquisizione di dati sismici da alcuni siti la quale mettono a disposizione OpenData tra cui:
+    * **INGV** (Istituto Nazionale di Geofisica e Vulcanologia) --> http://cnt.rm.ingv.it/
+    * **USGS** (United States Geological Survey) --> https://earthquake.usgs.gov/
+    * **Data.gov** (U.S. Government’s open data) --> https://www.data.gov/
+
+    * Gli step dell'algoritmo per l'acquisione dei dati che poi verrano restituiti in formato JSON sono i seguenti:
+        1. Effettuto una richiesta HTTP per accedere ai dati desiderati
+        *  Controllo lo stato della richiesta, in caso sia andata a buon fine (codice 200) continuo
+        *  Inizializzo un oggetto JSON che sarà resituito dalla funzione
+        *  Effettuto il parsing dei dati forniti dal sito e li codifico nel nuovo JSON
+        * Restituisco il JSON
+
+    * Gli step dell'algoritmo della post dei dati sul sito sono i seguenti:
+        1. TODO: INSERIRE GLI STEP
+
+* Implementazione di una piattaforma Web (HTML, PHP, JS, CSS) che utilizza le API descritte al punto precedente per la ricerca tra i vari OpenData e il posizionamento dei dati geogradici sulla mappa fornita da Google Maps. La piattafroma è stata realizzata in PHP ed è composta dai seguesti file principali:
+    1. **Index**: pagina di benvenuto nella piattaforma dove si effettuare il login o registrarsi
+    * **Registrazione**: acquiscisce i dati richiesti dal utente che verranno verificati dalla pagina "**controlloRegistrazione**". Se questi passano i controlli allora l'utente potrà entrare.
+    * **Login**: semplice pagina che permette il login degli utenti registrati attaverso **controlloLogin** che verfica la corettezza delle credenzali immesse.
+    * **PaginaInziale** la pagina principale della piattaforma dove appare una mappa che sarà popolata dai vari eventi restituiti dal API. Una serie di filtri permette di effettuare ricerche più o meno precise in base alla posizone o al tempo.
+    * **ContactUs**: raccoglie i contatti dei creatori della piattaforma.
+    * **AboutUs** dove si può leggere una piccola descrizione del progetto e il motivo che ci hanno portato a realizarlo.
 
 
-* Implementazione di due BotTelegram i quali usano, oltre alle API stesse di Telegram, le API implementate per l'acquisizione di dati. Possono eseguire i seguenti comandi:
+* Implementazione di due BotTelegram i quali usano, oltre alle API di Telegram, le API implementate per l'acquisizione di dati. Possono eseguire i seguenti comandi:
 
-SismaBot ( Bot per l'utente )
-    * /info che permette di avere informazioni in generale sul Bot
-    * /help che permette di ricevere in dettaglio i comandi che può eseguire e come utilizzarli
-    * /earthquakes che permette di ricevere una descrizione e la posizione di terremoti avvenuti nel raggio di 10 km da una location inviata dall'utente
-    * /damage che permette di inviare una foto con una descrizione e la posizione in cui un terremoto abbia creato danni in modo da salvarli nella pagina web dedicata sulla piattaforma per essere poi visionata in caso da enti pubblici.
+  * **SismaBot** (Bot per l'utente)
+    * _/earthquakes_ permette di ricevere la posizione e una descrizione dei terremoti avvenuti nel raggio di 10 km da una location specificata dall'utente.
+    * _/damage_ permette di segnalare dei danni, causati da un certo terremoto, con una foto con posizione e eventuale descrizione.
+    * _/info_ restituisce informazioni generiche sul Bot
+    * _/help_ restituisce dettagli sui comandi e come utilizzarli
 
-SUSismaBot ( Bot per responsabili o dipendenti di enti pubblici che seguono le pratiche sismiche )
-    * /info che permette di avere informazioni in generale sul Bot
-    * /help che permette di ricevere in dettaglio i comandi che può eseguire e come utilizzarli
-    * /receiveDamage che permette di ricevere in tempo reale le descrizioni e le foto di danni postati da qualche utente in modo tal da effettuare in caso un sopralluogo.
-    
-    
+  * **SUSismaBot** (Bot per responsabili o dipendenti di enti pubblici che seguono le pratiche sismiche)
+    * _/receiveDamage_ che permette di ricevere in tempo reale le descrizioni e le foto di danni postati da qualche utente in modo tal da effettuare in caso un sopralluogo.
+    * _/info_ restituisce informazioni generiche sul Bot
+    * _/help_ restituisce dettagli sui comandi e come utilizzarli
