@@ -26,28 +26,11 @@
           </div>
         </nav>
         <main role="main" class="inner cover col-md-9 col-lg-10">
-          <div class="our_textbox p-5">
-            <p>Per qualsiasi problema con il sito o per qualsiasi informazione o suggerimento contattateci:</p>
-            <ul>
-            <li>Andrea Mancini</li>
-            <ul>
-              <li><a href="mailto:andrea101288@hotmail.it">Email</a></li>
-              <li><a href="https://github.com/Andrea101288">Github</a></li>
-              <li><a href="https://www.facebook.com/mancio88ps/">Facebook</a></li>
-            </ul>
-            <li>Dawid Weglarz</li>
-            <ul>
-              <li><a href="mailto:d.weglarz@campus.uniurb.it">Email</a></li>
-              <li><a href="https://github.com/Radeox">Github</a></li>
-            </ul>
-            </ul>
-          </div>
         </main>
       </div>
     </div>
+    <div class="round-button-circle"><a href="addDamages.php" class="round-button">+</a></div>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/map_manager.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJfFfAiXYVz5GJyuiSU0ybWeq8bQuzvVE&callback=initMap"></script>
   </body>
 </html>

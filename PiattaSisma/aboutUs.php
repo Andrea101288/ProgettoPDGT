@@ -17,12 +17,12 @@
         <nav class="col-md-3 col-lg-2 flex-column">
           <div class="btn-group-vertical p-3">
             <h2><a href="paginaIniziale.php"><i>PiattaSisma</i></a></h2>
-            <button type="button" class="btn btn-info" onclick="location.href = 'aboutUs.php'">😎 About us</button>
-            <button type="button" class="btn btn-warning" onclick="location.href = '#'">👽 Website guide</button>
-            <button type="button" class="btn btn-success" onclick="location.href = '#'">🌎 Earthquakes list</button>
-            <button type="button" class="btn btn-info" onclick="location.href = '#'">🎥 Pictures</button>
-            <button type="button" class="btn btn-warning" onclick="location.href = 'contactUs.php'">📬 Contact us</button>
-            <button type="button" class="btn btn-danger" onclick="location.href = 'logout.php'">😱 Logout</button>
+            <button type="button" class="btn btn-info" onclick="location.href='aboutUs.php'">😎 About us</button>
+            <button type="button" class="btn btn-warning" onclick="location.href='#'">👽 Website guide</button>
+            <button type="button" class="btn btn-success" onclick="location.href='#'">🌎 Earthquakes list</button>
+            <button type="button" class="btn btn-info" onclick="location.href='damages.php'">🌋 Damages</button>
+            <button type="button" class="btn btn-warning" onclick="location.href='contactUs.php'">📬 Contact us</button>
+            <button type="button" class="btn btn-danger" onclick="location.href='logout.php'">😱 Logout</button>
           </div>
         </nav>
         <main role="main" class="inner cover col-md-9 col-lg-10">

@@ -36,3 +36,36 @@ a:hover {
 .our_textbox a:hover {
   color: white;
 }
+
+.round-button-circle {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+	width: 65px;
+	height: 65px;
+    border-radius: 50%;
+	border: 5px solid #CFDCEC;
+    overflow: hidden;
+
+    background: #4679BD;
+    box-shadow: 0 0 3px gray;
+}
+.round-button-circle:hover {
+	background: #30588E;
+}
+.round-button-circle a {
+    display: block;
+	float: left;
+	width: 100%;
+	padding-top: 50%;
+    padding-bottom: 50%;
+	line-height: 1em;
+	margin-top: -0.5em;
+
+	text-align: center;
+	color: #E2EAF3;
+    font-family: Verdana;
+    font-size: 3em;
+    font-weight: bold;
+    text-decoration: none;
+}
