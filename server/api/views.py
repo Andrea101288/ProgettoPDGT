@@ -3,6 +3,7 @@ import urllib
 from datetime import datetime, timedelta
 from dateutil.parser import parse
 from django.views import generic
+from django.core import serializers
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
@@ -79,12 +80,18 @@ class DamagesView(generic.View):
     def get(self, request):
         rv = {}
 
-        for damage in Damage.objects.all():
-            rv[str(damage.user)] = 2
+        # Set date
+        rv['update'] = datetime.now()
+
+        # Serialize all damages
+        data = serializers.serialize('json', Damage.objects.all())
+        data = json.loads(data)
+        rv['damages'] = data
 
         return JsonResponse(rv)
 
     def post(self, request):
+        # Create new Damage instance
         obj = Damage()
 
         # Parse request body
@@ -106,7 +113,6 @@ class DamagesView(generic.View):
         obj.damage_dsc = body['dsc']
 
         obj.save()
-
         return HttpResponse('OK')
 
     @csrf_exempt
