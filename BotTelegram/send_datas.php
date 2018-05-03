@@ -1,45 +1,42 @@
 <?php
-// funzione per caricare dati in formato Json su un web service
+// function to upload datas in JSON format in a web service
 function send_datas($dataApp, $method = 'POST') {
 
-print_r($dataApp);
+    // Inizialize datas
+    $chat_id = $dataApp['chat_id'];
+    $user_id = $dataApp['user_id'];
+    $dataApp2[$user_id] = $dataApp['text'];
 
-// inizializzo i dati da scrivere su firebase
-$chat_id = $dataApp['chat_id'];
-$user_id = $dataApp['user_id'];
-$dataApp2[$user_id] = $dataApp['text'];
+    // firebase Url 
+    $url = "https://databasepdgt.firebaseio.com/Conversations/{$chat_id}.json";
 
-// url dove salvare i dati
-$url = "https://databasepdgt.firebaseio.com/Conversations/{$chat_id}.json";
+    // curl init
+    $handle = curl_init($url);
 
-// inizializzo curl
-$handle = curl_init($url);
+    if($handle == false){
+        die("Ops, cURL doesn't work..\n");
+    }
+    // Convert array to JSON data
+    $jsondata = json_encode($dataApp2);
 
-if($handle == false){
-	die("Ops, cURL non funziona\n");
-}
-// trasformo il mio array in JSON
-$jsondata = json_encode($dataApp2);
+    // Set option 
+    curl_setopt($handle, CURLOPT_URL, $url);
+    curl_setopt($handle, CURLOPT_CUSTOMREQUEST, $method);
+    curl_setopt($handle, CURLOPT_POSTFIELDS, $jsondata);
+    curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
 
-// imposto la URl di firebase
-curl_setopt($handle, CURLOPT_URL, $url);
-curl_setopt($handle, CURLOPT_CUSTOMREQUEST, $method);
-//curl_setopt($handle, CURLOPT_HTTPHEADER, $header);
-curl_setopt($handle, CURLOPT_POSTFIELDS, $jsondata);
-curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+    // call exec
+    $response = curl_exec($handle);
+    // get call states
+    $status = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+    if($status != 200){
+        die("Http request failed, status{$status}\n");
+    }
 
-// eseguo la chiamata
-$response = curl_exec($handle);
+    // close 
+    curl_close($handle);
 
-$status = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-if($status != 200){
-	die("Richiesta Http fallita, status {$status}\n");
-}
-
-// chiudo
-curl_close($handle);
-
-//decodifica dei dati json
-return json_decode($response);
+    // json datas decode 
+    return json_decode($response);
 
 }

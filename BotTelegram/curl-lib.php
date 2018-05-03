@@ -1,5 +1,5 @@
 <?php
-// Semplice libreria per le creazione di richieste HTTP
+// Library to create http requests
 
 function http_request($url) {
 	
@@ -10,15 +10,16 @@ function http_request($url) {
 	
     curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
 
-    // Esecuzione della richiesta, $response = contenuto della risposta testuale
+    // Request execution, $response = textual response content 
     $response = curl_exec($handle);
 	
+    // request status
     $status = curl_getinfo($handle, CURLINFO_HTTP_CODE);
 	
     if($status != 200) {
         die("Richiesta HTTP fallita, status{$status}\n");
     }
 	
-    // Decodifica della risposta JSON
+    // JSON response Decode 
     return json_decode($response);
 }
