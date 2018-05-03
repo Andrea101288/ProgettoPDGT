@@ -15,7 +15,7 @@
     <div class="container-fluid">
        <div class="row">
         <nav class="col-md-3 col-lg-2 flex-column">
-          <div class="btn-group-vertical p-3">
+          <div class="btn-group-vertical p-1">
             <h2><i>PiattaSisma</i></h2>
             <button type="button" class="btn btn-info" onclick="location.href='aboutUs.php'">😎 About us</button>
             <button type="button" class="btn btn-warning" onclick="location.href='#'">👽 Website guide</button>
@@ -24,6 +24,9 @@
             <button type="button" class="btn btn-warning" onclick="location.href='contactUs.php'">📬 Contact us</button>
             <button type="button" class="btn btn-danger" onclick="location.href='logout.php'">😱 Logout</button><br>
             <form>
+              <b>Visualizza</b><br>
+              <input type="checkbox" name="earthquakes" checked> Terremoti<br>
+              <input type="checkbox" name="damages" checked> Danni<br>
               <b>Regione</b><br>
               <input type="radio" name="region" value="italy" checked> Italia<br>
               <input type="radio" name="region" value="usa"> USA<br>
