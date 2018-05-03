@@ -38,16 +38,16 @@ Il progetto è composto da 3 punti principali:
 
     * Gli step dell'algoritmo per l'acquisione dei dati che poi verrano restituiti in formato JSON sono i seguenti:
         1. Effettuto una richiesta HTTP per accedere ai dati desiderati
-        *  Controllo lo stato della richiesta, in caso sia andata a buon fine (codice 200) continuo
-        *  Inizializzo un oggetto JSON che sarà resituito dalla funzione
-        *  Effettuto il parsing dei dati forniti dal sito e li codifico nel nuovo JSON
-        * Restituisco il JSON
+        2. Controllo lo stato della richiesta, in caso sia andata a buon fine (codice 200) continuo
+        3. Inizializzo un oggetto JSON che sarà resituito dalla funzione
+        4. Effettuto il parsing dei dati forniti dal sito e li codifico nel nuovo JSON
+        5. Restituisco il JSON
 
     * Gli step dell'algoritmo della post dei dati sul sito sono i seguenti:
         1. TODO: INSERIRE GLI STEP
 
-* Implementazione di una piattaforma Web (HTML, PHP, JS, CSS) che utilizza le API descritte al punto precedente per la ricerca tra i vari OpenData e il posizionamento dei dati geogradici sulla mappa fornita da Google Maps. La piattafroma è stata realizzata in PHP ed è composta dai seguesti file principali:
-    1. **Index**: pagina di benvenuto nella piattaforma dove si effettuare il login o registrarsi
+* Implementazione di una piattaforma Web (HTML, PHP, JS, CSS) che utilizza le API descritte al punto precedente per la ricerca tra i vari OpenData e il posizionamento dei dati geografici sulla mappa fornita da Google Maps. La piattafroma è stata realizzata in PHP ed è composta dai seguesti file principali:
+    * **Index**: pagina di benvenuto nella piattaforma dove si effettua il login o la registrazione
     * **Registrazione**: acquiscisce i dati richiesti dal utente che verranno verificati dalla pagina "**controlloRegistrazione**". Se questi passano i controlli allora l'utente potrà entrare.
     * **Login**: semplice pagina che permette il login degli utenti registrati attaverso **controlloLogin** che verfica la corettezza delle credenzali immesse.
     * **PaginaInziale** la pagina principale della piattaforma dove appare una mappa che sarà popolata dai vari eventi restituiti dal API. Una serie di filtri permette di effettuare ricerche più o meno precise in base alla posizone o al tempo.
