@@ -27,10 +27,14 @@ function getMarkers() {
   // Fill url
   var url = 'http://localhost:8000/earthquakes/' + region;
 
-  if(from_day != "")
-    url += "?starttime=" + from_day + "&endtime=" + to_day;
-  else if(to_day != "")
+  if(to_day != "")
     url += "?endtime=" + to_day;
+  else if(from_day != "") {
+    var dat = new Date(from_day);
+    dat.setDate(dat.getDate() + 30);
+    var date = dat.toISOString().split("T")[0];
+    url += "?starttime=" + from_day + "&endtime=" + date;
+  }
 
   // Remove old markers
   deleteMarkers();
