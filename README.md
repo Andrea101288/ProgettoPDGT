@@ -27,6 +27,7 @@ Il progetto _PiattaSisma_ si pone come obbiettivo:
 ## Relazione ##
 
 Il progetto è composto da 3 punti principali:
+
     * Realizzazione di un API (GET e POST) in Python
     * Implementazione di una piattaforma Web (HTML, PHP, JS, CSS)
     * Implementazione di due BotTelegram
