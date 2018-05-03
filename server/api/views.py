@@ -1,15 +1,18 @@
+import json
 import urllib
 from datetime import datetime, timedelta
 from dateutil.parser import parse
 from django.views import generic
-from django.http import JsonResponse
-# from .models import Damage, User, TelegramUser
+from django.http import JsonResponse, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
+from .models import Damage, User, NotificationArea
 from .country.all import COUNTRY_LIST
 
 
 class EarthquakesView(generic.View):
     # This value is used to determinate the default period to search
-    default_days_delta = 90
+    default_days_delta = 30
 
     def get(self, request, country):
         # Check if reqeusted country in implemented
@@ -70,3 +73,42 @@ class EarthquakesView(generic.View):
                 rv = req_country.return_json(from_day, to_day)
 
         return JsonResponse(rv)
+
+
+class DamagesView(generic.View):
+    def get(self, request):
+        rv = {}
+
+        for damage in Damage.objects.all():
+            rv[str(damage.user)] = 2
+
+        return JsonResponse(rv)
+
+    def post(self, request):
+        obj = Damage()
+
+        # Parse request body
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+
+        # Get user
+        obj.user = get_object_or_404(User, pk=body['user'])
+
+        # Get coordinates
+        obj.lat = body['lat']
+        obj.lon = body['lon']
+
+        # Get date
+        obj.date = datetime.now()
+
+        # Get info
+        obj.damage_photo = body['photo']
+        obj.damage_dsc = body['dsc']
+
+        obj.save()
+
+        return HttpResponse('OK')
+
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        return super(DamagesView, self).dispatch(*args, **kwargs)

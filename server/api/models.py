@@ -5,9 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 class Damage(models.Model):
     user = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name=_("user"))
 
-    # Earthquake ID
-    earthquake_id = models.IntegerField(verbose_name=_("earthquake_id"))
-
     # Position
     lat = models.FloatField(verbose_name=_("latitude"))
     lon = models.FloatField(verbose_name=_("longitude"))
@@ -39,20 +36,9 @@ class User(models.Model):
     is_enabled.short_description = _("enabled")
 
 
-class TelegramUser(models.Model):
+class NotificationArea(models.Model):
     # Owner username
     owner = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name=_("username"))
-
-    # Telegram connection
-    chat_id = models.IntegerField(primary_key=True, verbose_name=_("chat_id"))
-
-
-class TelegramSuperUser(models.Model):
-    # Owner username
-    owner = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name=_("username"))
-
-    # Telegram connection
-    chat_id = models.IntegerField(primary_key=True, verbose_name=_("chat_id"))
 
     # Position
     lat = models.FloatField(verbose_name=_("latitude"), blank=True)

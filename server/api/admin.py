@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Damage, User, TelegramUser, TelegramSuperUser
+from .models import Damage, User, NotificationArea
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -34,17 +34,11 @@ class UserAdmin(admin.ModelAdmin):
     disable_account.short_description = _("disable_accounts")
 
 
-class TelegramUserAdmin(admin.ModelAdmin):
-    list_display = ('owner', 'chat_id')
-    search_fields = ('owner', 'chat_id')
-
-
-class TelegramSuperUserAdmin(admin.ModelAdmin):
-    list_display = ('owner', 'chat_id')
-    search_fields = ('owner', 'chat_id')
+class NotificationAreaAdmin(admin.ModelAdmin):
+    list_display = ['owner']
+    search_fields = ['owner']
 
 
 admin.site.register(Damage, DamageAdmin)
 admin.site.register(User, UserAdmin)
-admin.site.register(TelegramUser, TelegramUserAdmin)
-admin.site.register(TelegramSuperUser, TelegramSuperUserAdmin)
+admin.site.register(NotificationArea, NotificationAreaAdmin)
