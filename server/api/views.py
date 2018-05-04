@@ -2,20 +2,26 @@ import json
 import urllib
 from datetime import datetime, timedelta
 from dateutil.parser import parse
-from django.views import generic
 from django.core import serializers
+from django.views import generic
 from django.http import JsonResponse, HttpResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
-from .models import Damage, User, NotificationArea
+from django.views.decorators.csrf import csrf_exempt
+from .models import Damage, User
 from .country.all import COUNTRY_LIST
 
 
 class EarthquakesView(generic.View):
+    """
+    Manage parsing process and return JSON on GET request
+    """
     # This value is used to determinate the default period to search
     default_days_delta = 30
 
     def get(self, request, country):
+        """
+        Respond to GET request at /earthquakes and return requested earthquakes
+        """
         # Check if reqeusted country in implemented
         if country in COUNTRY_LIST.keys():
             # Get requested country data
@@ -78,6 +84,9 @@ class EarthquakesView(generic.View):
 
 class DamagesView(generic.View):
     def get(self, request):
+        """
+        Respond to GET request at /damages and return damages list
+        """
         rv = {}
 
         # Set date
@@ -91,6 +100,9 @@ class DamagesView(generic.View):
         return JsonResponse(rv)
 
     def post(self, request):
+        """
+        Respond to POST request at /damages and save data to database
+        """
         # Create new Damage instance
         obj = Damage()
 
