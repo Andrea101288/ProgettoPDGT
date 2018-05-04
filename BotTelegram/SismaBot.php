@@ -4,6 +4,7 @@ require_once(dirname(__FILE__) . '/curl-lib.php');
 require_once(dirname(__FILE__) . '/send_datas.php');
 require_once(dirname(__FILE__) . '/acquire_datas.php');
 require_once(dirname(__FILE__) . '/get_earthquakes.php');
+// require_once(dirname(__FILE__) . '/send_damages.php');
 
 
 // Upload last update ID from text file
@@ -25,6 +26,7 @@ $volcano = "\xF0\x9F\x8C\x8B";
 $usaFlag = "\xF0\x9F\x87\xBA\xF0\x9F\x87\xB8";
 $itaFlag = "\xF0\x9F\x87\xAE\xF0\x9F\x87\xB9";
 
+$datasToSend = [];
 
 while (1){
     
@@ -36,15 +38,15 @@ while (1){
         $last_update = 0;
     }
     // next request getUpdate 
-    $dati = http_request("https://api.telegram.org/bot{$token}/getUpdates?offset=".($last_update + 1)."&limit=1");
-    
+    $datas = http_request("https://api.telegram.org/bot{$token}/getUpdates?offset=".($last_update + 1)."&limit=1");
+    print_r($datas);
     // get datas from Telegram User 
-    if(isset($dati->result[0])) {
-        $update_id = $dati->result[0]->update_id;
+    if(isset($datas->result[0])) {
+        $update_id = $datas->result[0]->update_id;
         // Savin in the variables all the data that interest me to be saved in the database
-        $user_id = $dati->result[0]->message->from->id;
-        $chat_id = $dati->result[0]->message->chat->id;   
-        $text = $dati->result[0]->message->text;            
+        $user_id = $datas->result[0]->message->from->id;
+        $chat_id = $datas->result[0]->message->chat->id;   
+        $text = $datas->result[0]->message->text;            
         
         if(isset($text)){
             // I Create data structure as an array
@@ -61,7 +63,7 @@ while (1){
             if(isset($memory->$user_id)) {
                 
                 // get User name 
-                $name = $dati->result[0]->message->from->first_name;
+                $name = $datas->result[0]->message->from->first_name;
                 // I overwrite the data on firebase with the last message
                 $memory = send_datas($dataApp, "PATCH");
                 
@@ -69,7 +71,7 @@ while (1){
                 
                 // if i'm here it means that it is a new user so i send a welcome message
                 // get User name to use it in the welcome message
-                $name = $dati->result[0]->message->from->first_name;
+                $name = $datas->result[0]->message->from->first_name;
                 
                 // Welcome message
                 http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text= Benvenuto".$name."!"); 
@@ -82,12 +84,12 @@ while (1){
         file_put_contents($last_update_filename, $update_id);
         
         // get the coordinates 
-        if(isset($dati->result[0]->message->location)){
-            $lat = $dati->result[0]->message->location->latitude;
-            $long = $dati->result[0]->message->location->longitude;
+        if(isset($datas->result[0]->message->location)){
+            $lat = $datas->result[0]->message->location->latitude;
+            $long = $datas->result[0]->message->location->longitude;
         } 
         
-        if(isset($text)){
+        if(isset($text) and (!isset($states[$chat_id])) or $states[(string)$chat_id] == 0){
             
             switch($text){
                 
@@ -99,17 +101,23 @@ while (1){
                     http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($msg)."");
                     break;
                     
-                case "/terremoti":
+                case "/earthquakes":
             
                     // send a message to the user saying to send me his position
                     http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=Inviami la tua posizione..");
                     // get the state 1
-                    $stati[(string)$chat_id] = 1;            
+                    $states[(string)$chat_id] = 1;            
                     break;
-                
+                case "/damage":
+                    // send a message to the user saying to send me a photo
+                    http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=Inviami una foto del danno..");
+                    // get the state 2
+                    $states[(string)$chat_id] = 2; 
+                    break;
+                    
                 case "/help":
                     
-                    $helpMsg = "".$earth." SismaBot ".$earth." a tua disposizione! Ecco a te i comandi:\n1) /terremoti ti permette di conoscere descrizione e località di ogni terremoto nel raggio di 10 km dalla zona da te scelta inviatami condividendo la location\n2) /danni premette di inviare posizione e descrizione di danni provocati da terremoti sull'apposito sito www.Piattasisma.com dove le utorità poi procederanno alla visione\n3) /info per avere tutte le informazioni sul Bot e sul sito collegato ad esso";
+                    $helpMsg = "".$earth." SismaBot ".$earth." a tua disposizione! Ecco a te i comandi:\n1) /earthquakes ti permette di conoscere descrizione e località di ogni terremoto nel raggio di 10 km dalla zona da te scelta inviatami condividendo la location\n2) /damage premette di inviare posizione e descrizione di danni provocati da terremoti sull'apposito sito www.Piattasisma.com dove le utorità poi procederanno alla visione\n3) /info per avere tutte le informazioni sul Bot e sul sito collegato ad esso\n4) /help per sapere come utilizzare le funzionalità del bot";
                     // send a message to the user explaining how to use the Bot Commands
                     http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($helpMsg)."");
                     break;
@@ -122,9 +130,42 @@ while (1){
                     break;
             }
         
-        }else if (isset($dati->result[0]->message->location) and $stati[(string)$chat_id] == 1) {
+        }else if (isset($datas->result[0]->message->location) and $states[(string)$chat_id] == 1) {
             
-            $terremoti = getTerremoti($dati, $token);          
-        }
+            $eartquakes = getEarthquakes($datas, $token);
+            
+        }else if (isset($datas->result[0]->message->photo) and $states[(string)$chat_id] == 2) {
+            
+            $photo = $datas->result[0]->message->photo;           
+            $a = count($photo)-1;
+            $file_id = $datas->result[0]->message->photo[$a]->file_id;
+            // get photo           
+            // $file = http_request("https://api.telegram.org/bot{$token}/getFile?file_id=".$datas->result[0]->message->photo[$a]->file_id);
+            $getPhoto = file_put_contents("photo.jpg", fopen("https://api.telegram.org/bot{$token}/getFile?file_id=".$datas->result[0]->message->photo[$a]->file_id, 'r'));
+            $filePath = $datas->result[0]->message->photo[$a]->file_path;
+            $datasToSend[$user_id]['photo'] = "https://api.telegram.org/file/bot".$token."/".$filePath;
+            // description request
+            $msg = "inviami una breve descrizione del danno";
+            http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($msg));
+            // http_request("https://api.telegram.org/bot{$token}/sendPhoto?chat_id=".$chat_id."&photo=".$file_id);
+            $states[(string)$chat_id] = 3;
+            
+        }else if(isset($text) and $states[(string)$chat_id] == 3){
+            
+            $datasToSend[$user_id]['dsc'] = $text;
+            $msg = "ora inviami la posizione del danno";
+            http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($msg));
+            $states[(string)$chat_id] = 4;
+            
+        }else if(isset($datas->result[0]->message->location) and $states[(string)$chat_id] == 4){
+        
+            $lat = $datas->result[0]->message->location->latitude;
+            $long = $datas->result[0]->message->location->longitude;
+            $datasToSend[$user_id]['lat'] = $lat;
+            $datasToSend[$user_id]['lon'] = $long;
+            $datasToSend[$user_id]['user'] = "Andrea88";
+            $postResponse = http_request("http://localhost:8000/damages/", $datasToSend[$user_id], 'POST'); 
+         
+        }  
     }
 }
