@@ -28,14 +28,15 @@ Il progetto _PiattaSisma_ si pone come obbiettivo:
 
 Il progetto è composto da 3 punti principali:
 
-    * Realizzazione di un API (GET e POST) in Python
+    * Realizzazione di un API (GET e POST) in Python (Django Framework)
     * Implementazione di una piattaforma Web (HTML, PHP, JS, CSS)
-    * Implementazione di due BotTelegram
+    * Implementazione di due BotTelegram (PHP)
 
-* Realizzazione di un API (GET e POST) in Python per acquisizione di dati sismici da alcuni siti la quale mettono a disposizione OpenData tra cui:
-    * **INGV** (Istituto Nazionale di Geofisica e Vulcanologia) --> http://cnt.rm.ingv.it/
-    * **USGS** (United States Geological Survey) --> https://earthquake.usgs.gov/
-    * **Data.gov** (U.S. Government’s open data) --> https://www.data.gov/
+* Realizzazione di un API (GET e POST) con Django framework:
+    * Acquisizione di dati sismici da alcuni siti la quale mettono a disposizione OpenData tra cui:
+      * **INGV** (Istituto Nazionale di Geofisica e Vulcanologia) --> http://cnt.rm.ingv.it/
+      * **USGS** (United States Geological Survey) --> https://earthquake.usgs.gov/
+      * **Data.gov** (U.S. Government’s open data) --> https://www.data.gov/
 
     * Gli step dell'algoritmo per l'acquisione dei dati che poi verrano restituiti in formato JSON sono i seguenti:
         1. Effettuto una richiesta HTTP per accedere ai dati desiderati
