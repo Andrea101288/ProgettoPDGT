@@ -15,8 +15,8 @@
     <div class="container-fluid">
        <div class="row">
         <nav class="col-md-3 col-lg-2 flex-column">
-          <div class="btn-group-vertical p-3">
-            <h2><a href="paginaIniziale.php"><i>PiattaSisma</i></a></h2>
+          <div class="btn-group-vertical p-1">
+            <h2><a href="homePage.php"><i>PiattaSisma</i></a></h2>
             <button type="button" class="btn btn-info" onclick="location.href='aboutUs.php'">😎 About us</button>
             <button type="button" class="btn btn-warning" onclick="location.href='#'">👽 Website guide</button>
             <button type="button" class="btn btn-success" onclick="location.href='#'">🌎 Earthquakes list</button>

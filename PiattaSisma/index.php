@@ -19,11 +19,11 @@
           session_start();
 
           if(isset($_SESSION['username'])) {
-            echo '<button type="button" class="btn btn-primary btn-lg"><a href="paginaIniziale.php">Entra</a></button>';
+            echo '<button type="button" class="btn btn-primary btn-lg"><a href="homePage.php">Entra</a></button>';
           }
           else {
             echo '<button type="button" class="btn btn-primary btn-lg m-1"><a href="login.php">Login</a></button>';
-            echo '<button type="button" class="btn btn-primary btn-lg m-1"><a href="registrazione.php">Sign Up</a></button>';
+            echo '<button type="button" class="btn btn-primary btn-lg m-1"><a href="register.php">Sign Up</a></button>';
           }
         ?>
       </main>

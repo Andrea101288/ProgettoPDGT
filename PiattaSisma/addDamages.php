@@ -9,19 +9,19 @@
   <body class="text-center">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
       <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="paginaIniziale.php">PiattaSisma</a>
+        <a class="navbar-brand" href="homePage.php">PiattaSisma</a>
       </nav>
-      <form class="form-signin" method="POST" action="damageControl.php">
-        <h2 class="h3 mb-3 font-weight-normal">Add your photo and a description</h2>
-        <label for="inputPhoto" class="sr-only">Photo</label>
-        <input type="file" id="inputPhoto" name="photo" class="form-control m-2" placeholder="Photo" required autofocus>
-        <label for="inputAddress" class="sr-only">Address and civic number</label>
-        <input type="text" id="inputAddress" name="address" class="form-control m-2" placeholder="Address" required>
-        <label for="inputCity" class="sr-only">City</label>
-        <input type="text" id="inputCity" name="city" class="form-control m-2" placeholder="City" required>
-        <label for="inputDescription" class="sr-only">Description</label>
-        <textarea type="text" id="inputDescription" name="description" class="form-control m-2" placeholder="Description"></textarea>
-        <button class="btn btn-lg btn-primary btn-block m-2" type="submit">Submit</button>
+      <form class="form-signin" method="POST" action="damageCheck.php">
+        <h2 class="h3 mb-3 font-weight-normal">Aggiungi una foto e una descrizione</h2>
+        <label for="inputPhoto" class="sr-only">Foto</label>
+        <input type="file" id="inputPhoto" name="photo" class="form-control m-2" placeholder="Foto" required autofocus>
+        <label for="inputAddress" class="sr-only">Indirizzo e numero civico</label>
+        <input type="text" id="inputAddress" name="address" class="form-control m-2" placeholder="Indirizzo e numero civico" required>
+        <label for="inputCity" class="sr-only">Città</label>
+        <input type="text" id="inputCity" name="city" class="form-control m-2" placeholder="Città" required>
+        <label for="inputDescription" class="sr-only">Descrizione</label>
+        <textarea type="text" id="inputDescription" name="description" class="form-control m-2" placeholder="Descrizione"></textarea>
+        <button class="btn btn-lg btn-primary btn-block m-2" type="submit">Invia</button>
       </form>
       <footer class="mastfoot mt-auto">
         <div class="inner">

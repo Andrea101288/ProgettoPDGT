@@ -2,7 +2,7 @@
   <?php
     session_start();
     if(!isset($_SESSION['username'])) {
-      header("Location: login.php");
+      header("Location: homePage.php");
     }
   ?>
   <head>
@@ -15,7 +15,7 @@
     <div class="container-fluid">
        <div class="row">
         <nav class="col-md-3 col-lg-2 flex-column">
-          <div class="btn-group-vertical p-3">
+          <div class="btn-group-vertical p-1">
             <h2><a href="paginaIniziale.php"><i>PiattaSisma</i></a></h2>
             <button type="button" class="btn btn-info" onclick="location.href='aboutUs.php'">😎 About us</button>
             <button type="button" class="btn btn-warning" onclick="location.href='#'">👽 Website guide</button>
@@ -48,7 +48,5 @@
     </div>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/map_manager.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJfFfAiXYVz5GJyuiSU0ybWeq8bQuzvVE&callback=initMap"></script>
   </body>
 </html>

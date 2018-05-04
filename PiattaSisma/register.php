@@ -3,7 +3,7 @@
     session_start();
 
     if(isset($_SESSION['username'])) {
-      header("Location: paginaIniziale.php");
+      header("Location: homePage.php");
     }
   ?>
   <head>
@@ -18,11 +18,11 @@
       <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="/PiattaSisma/">PiattaSisma</a>
       </nav>
-      <form class="form-signin" method="POST" action="controlloRegistrazione.php">
+      <form class="form-signin" method="POST" action="registerCheck.php">
         <?php
           if(isset($_SESSION['wrong_login']) && ($_SESSION['wrong_login'] == 1)) {
             echo '<div class="alert alert-danger" role="alert">';
-            echo 'Problema con la registrazione.<br>';
+            echo 'Problema con la register.<br>';
             echo 'Si prega di riprovare.';
             echo '</div>';
 

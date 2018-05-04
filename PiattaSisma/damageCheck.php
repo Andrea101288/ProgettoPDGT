@@ -13,8 +13,8 @@
   $data['dsc'] = $_REQUEST["description"];
 
   // Connect to database
-  $conn = mysqli_connect($server, $user, $password) or die("Problemi nello stabilire la connessione");
-  mysqli_select_db($conn, $database) or die("Errore di accesso al data base utenti");
+  $conn = mysqli_connect($server, $user, $password) or die("Error in connection to database");
+  mysqli_select_db($conn, $database) or die("Error accessing user table");
 
   // Check if user exists in db
   $sql = "SELECT * FROM api_user WHERE '".$_SESSION['username']."' = username;";
@@ -39,7 +39,7 @@
     http_request($target, $data, 'POST');
 
     // Redirect to home
-    header("Location: paginaIniziale.php");
+    header("Location: homePage.php");
     die();
   }
   else {
@@ -54,18 +54,18 @@
     $handle = curl_init();
 
     if($handle == false) {
-        die("Ops, cURL non funziona\n");
+        die("Ops, cURL don't work\n");
     }
 
+    // Encode data
+    $jsonData = json_encode($data);
+
     if($method == 'POST') {
-      // Encode data
-      $jsonData = json_encode($data);
       curl_setopt($handle, CURLOPT_POSTFIELDS, $jsonData);
     }
 
     // Custom header
     $header = array(
-        'Content-Type: application/json',
         'Content-Length: ' . strlen($jsonData)
     );
 
@@ -75,17 +75,14 @@
     curl_setopt($handle, CURLOPT_HTTPHEADER, $header);
     curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
 
-    // Esecuzione della richiesta, $response = contenuto della risposta testuale
     $response = curl_exec($handle);
 
     $status = curl_getinfo($handle, CURLINFO_HTTP_CODE);
     if($status != 200) {
-        die("Richiesta HTTP fallita, status {$status}\n");
+        die("HTTP request failed, status {$status}\n");
     }
 
     curl_close($handle);
-
-    // Decodifica della risposta JSON
     return json_decode($response);
   }
 ?>
