@@ -144,7 +144,7 @@ while (1){
             
         }else if (isset($datas->result[0]->message->photo) and $states[(string)$chat_id] == 2) {            
             
-            $datasToSend[$user_id]['photo'] = get_photo($datas, $dataApp, $token);
+            $datasToSend[$user_id]['photo'] = get_photo($datas, $token);
             // description request
             $msg = "inviami una breve descrizione del danno";
             http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($msg));
