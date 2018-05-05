@@ -1,0 +1,6 @@
+token.php
+settings.php
+settings.cnf
+db.sqlite3
+
+__pycache__
