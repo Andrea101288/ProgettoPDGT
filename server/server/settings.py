@@ -120,4 +120,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# CORS Config
 CORS_ORIGIN_ALLOW_ALL = True
+
+# Static files (CSS, JavaScript, Images)
+PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+MEDIA_URL = '/media/'

@@ -2,5 +2,6 @@ token.php
 settings.php
 settings.cnf
 db.sqlite3
+static
 
 __pycache__
