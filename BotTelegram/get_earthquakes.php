@@ -1,11 +1,11 @@
 <?php
 require_once(dirname(__FILE__) . '/curl-lib.php');
-function getEarthquakes($dati, $token){        
+function getEarthquakes($UserDatas, $token){        
    
     // get Datas from Telegram user
-    $lat = $dati->result[0]->message->location->latitude;
-    $long = $dati->result[0]->message->location->longitude;
-    $chat_id = $dati->result[0]->message->chat->id;
+    $lat = $UserDatas->result[0]->message->location->latitude;
+    $long = $UserDatas->result[0]->message->location->longitude;
+    $chat_id = $UserDatas->result[0]->message->chat->id;
     $earthquakes_datas = http_request("http://localhost:8000/earthquakes/italy?lon=".$long."&lat=".$lat."&rad=5");    
     
     // for each earthquakes i find in a 10km radius, i get the datas which i need to send to the user the description and location

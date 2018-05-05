@@ -4,7 +4,7 @@ require_once(dirname(__FILE__) . '/curl-lib.php');
 require_once(dirname(__FILE__) . '/send_datas.php');
 require_once(dirname(__FILE__) . '/acquire_datas.php');
 require_once(dirname(__FILE__) . '/get_earthquakes.php');
-// require_once(dirname(__FILE__) . '/send_damages.php');
+require_once(dirname(__FILE__) . '/get_photo.php');
 
 
 // Upload last update ID from text file
@@ -25,6 +25,7 @@ $gradCap = "\xF0\x9F\x8E\x93";
 $volcano = "\xF0\x9F\x8C\x8B";
 $usaFlag = "\xF0\x9F\x87\xBA\xF0\x9F\x87\xB8";
 $itaFlag = "\xF0\x9F\x87\xAE\xF0\x9F\x87\xB9";
+$handsUp = "\xF0\x9F\x99\x8C";
 
 $datasToSend = [];
 
@@ -56,7 +57,7 @@ while (1){
             'text' => $text
             ]; 
             
-            // check in firebase database if exist chat_id
+            // check in firebase database if exist user_id
             $memory = acquire_datas($dataApp);	        
             
             // If user has already sent a message before
@@ -128,26 +129,26 @@ while (1){
                     // send a message with some general info
                     http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($infoMsg)."");
                     break;
+                
+                default:
+                    
+                    $infoMsg = "Scusami non ho capito...";
+                    // send a message with some general info
+                    http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($infoMsg)."");
+                   
             }
         
         }else if (isset($datas->result[0]->message->location) and $states[(string)$chat_id] == 1) {
             
             $eartquakes = getEarthquakes($datas, $token);
             
-        }else if (isset($datas->result[0]->message->photo) and $states[(string)$chat_id] == 2) {
+        }else if (isset($datas->result[0]->message->photo) and $states[(string)$chat_id] == 2) {            
             
-            $photo = $datas->result[0]->message->photo;           
-            $a = count($photo)-1;
-            $file_id = $datas->result[0]->message->photo[$a]->file_id;
-            // get photo           
-            // $file = http_request("https://api.telegram.org/bot{$token}/getFile?file_id=".$datas->result[0]->message->photo[$a]->file_id);
-            $getPhoto = file_put_contents("photo.jpg", fopen("https://api.telegram.org/bot{$token}/getFile?file_id=".$datas->result[0]->message->photo[$a]->file_id, 'r'));
-            $filePath = $datas->result[0]->message->photo[$a]->file_path;
-            $datasToSend[$user_id]['photo'] = "https://api.telegram.org/file/bot".$token."/".$filePath;
+            $datasToSend[$user_id]['photo'] = get_photo($datas, $dataApp, $token);
             // description request
             $msg = "inviami una breve descrizione del danno";
             http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($msg));
-            // http_request("https://api.telegram.org/bot{$token}/sendPhoto?chat_id=".$chat_id."&photo=".$file_id);
+            // get state 3
             $states[(string)$chat_id] = 3;
             
         }else if(isset($text) and $states[(string)$chat_id] == 3){
@@ -155,6 +156,7 @@ while (1){
             $datasToSend[$user_id]['dsc'] = $text;
             $msg = "ora inviami la posizione del danno";
             http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($msg));
+            // get state 4
             $states[(string)$chat_id] = 4;
             
         }else if(isset($datas->result[0]->message->location) and $states[(string)$chat_id] == 4){
@@ -164,8 +166,10 @@ while (1){
             $datasToSend[$user_id]['lat'] = $lat;
             $datasToSend[$user_id]['lon'] = $long;
             $datasToSend[$user_id]['user'] = "Andrea88";
-            $postResponse = http_request("http://localhost:8000/damages/", $datasToSend[$user_id], 'POST'); 
-         
+            http_request("http://localhost:8000/damages/", $datasToSend[$user_id], 'POST'); 
+            $msg = "Ottimo Lavoro! ".$handsUp." Caricamento del danno completato!";
+            http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($msg));    
+            $states[(string)$chat_id] = 0;
         }  
     }
 }
