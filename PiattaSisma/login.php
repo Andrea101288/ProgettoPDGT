@@ -16,7 +16,7 @@
   <body class="text-center">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
       <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="/PiattaSisma/">PiattaSisma</a>
+        <a class="navbar-brand" href="index.php">PiattaSisma</a>
       </nav>
       <form class="form-signin" method="POST" action="loginCheck.php">
         <?php
