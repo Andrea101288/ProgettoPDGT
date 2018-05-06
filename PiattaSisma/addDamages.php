@@ -12,6 +12,18 @@
         <a class="navbar-brand" href="homePage.php">PiattaSisma</a>
       </nav>
       <form class="form-signin" method="POST" action="damageCheck.php" enctype="multipart/form-data">
+        <?php
+        session_start();
+
+        if(isset($_SESSION['address_not_found']) && $_SESSION['address_not_found'] == 1) {
+            echo '<div class="alert alert-danger" role="alert">';
+            echo 'Indirizzo non trovato!';
+            echo '</div>';
+
+            unset($_SESSION['address_not_found']);
+          }
+        ?>
+
         <h2 class="h3 mb-3 font-weight-normal">Aggiungi una foto e una descrizione</h2>
         <label for="inputPhoto" class="sr-only">Foto</label>
         <input type="file" id="inputPhoto" name="photo" class="form-control m-2" placeholder="Foto" required autofocus>

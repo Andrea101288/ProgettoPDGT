@@ -25,14 +25,19 @@
   mysqli_close($conn);
 
   if(mysqli_num_rows($result) > 0) {
-    // Get coordinates from Google Maps API
-    $url = "https://maps.googleapis.com/maps/api/geocode/json?address=".urlencode($address).",".urlencode($city)."&key=AIzaSyCJfFfAiXYVz5GJyuiSU0ybWeq8bQuzvVE";
-    $res = http_request($url);
-
     $data['user'] = $_SESSION['username'];
 
-    $data['lat'] = $res->results[0]->geometry->location->lat;
-    $data['lon'] = $res->results[0]->geometry->location->lng;
+    // Get coordinates from Google Maps API
+    $coor = get_coordinates($address.",".$city);
+
+    if($coor == Null) {
+        $_SESSION['address_not_found'] = 1;
+        header("Location: addDamages.php");
+        die();
+    }
+
+    $data['lat'] = $coor['lat'];
+    $data['lon'] = $coor['lon'];
 
     $target = "http://piattasisma.ddns.net/api/damages/";
 
@@ -87,5 +92,31 @@
 
     curl_close($handle);
     return json_decode($response);
+  }
+
+  // Return coordinates from given address
+  function get_coordinates($address) {
+    // Init stuff
+    $handle = curl_init();
+
+    // Set stuff
+    $url = "https://maps.googleapis.com/maps/api/geocode/json?address=".urlencode($address)."&key=AIzaSyCJfFfAiXYVz5GJyuiSU0ybWeq8bQuzvVE";
+
+    curl_setopt($handle, CURLOPT_URL, $url);
+    curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($handle);
+    $res = json_decode($response);
+
+    if($res->status == "ZERO_RESULTS") {
+        $rv = Null;
+    }
+    else {
+        $rv['lat'] = $res->results[0]->geometry->location->lat;
+        $rv['lon'] = $res->results[0]->geometry->location->lng;
+    }
+
+    curl_close($handle);
+    return $rv;
   }
 ?>
