@@ -61,16 +61,17 @@
     // Encode data
     $jsonData = json_encode($data);
 
-    if($method == 'POST') {
-      curl_setopt($handle, CURLOPT_POSTFIELDS, $jsonData);
-      curl_setopt($handle, CURLOPT_HTTPHEADER, $header);
-    }
-
     // Custom header
     $header = array(
         'Content-Type: application/json',
         'Content-Length: ' . strlen($jsonData),
     );
+
+    if($method == 'POST') {
+      curl_setopt($handle, CURLOPT_POSTFIELDS, $jsonData);
+      curl_setopt($handle, CURLOPT_HTTPHEADER, $header);
+    }
+
 
     // Set stuff
     curl_setopt($handle, CURLOPT_URL, $url);
