@@ -30,20 +30,27 @@ function getMarkers() {
     var region = radio[i].value;
 
     // Get date range
-    var to_day = document.getElementById("to_day").value;
     var from_day = document.getElementById("from_day").value;
+    var to_day = document.getElementById("to_day").value;
 
     // Fill url
     var url = 'http://piattasisma.ddns.net/api/earthquakes/' + region;
 
-    if(to_day != "")
-      url += "?endtime=" + to_day;
+    if(from_day != "" && to_day != "")
+      url += "?starttime=" + from_day + "&endtime=" + to_day;
     else if(from_day != "") {
       var dat = new Date(from_day);
       dat.setDate(dat.getDate() + 30);
       var date = dat.toISOString().split("T")[0];
       url += "?starttime=" + from_day + "&endtime=" + date;
     }
+    else if(to_day != "") {
+      var dat = new Date(to_day);
+      dat.setDate(dat.getDate() - 30);
+      var date = dat.toISOString().split("T")[0];
+      url += "?starttime=" + date + "&endtime=" + to_day;
+    }
+    console.log(url);
 
     // JSON request
     fetch(url)
