@@ -11,6 +11,7 @@ from django.views import generic
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+from server.settings import MEDIA_ROOT
 from .models import Damage, User
 from .country.all import COUNTRY_LIST
 
@@ -119,7 +120,7 @@ class DamagesView(generic.View):
         img = PIL.Image.open(BytesIO(decode_image))
 
         photo_name = str(uuid.uuid4()) + '.' + img.format
-        img.save("server/media/" + photo_name, format='PNG')
+        img.save(MEDIA_ROOT + '/' + photo_name, format='PNG')
 
         # Get user
         obj.user = get_object_or_404(User, pk=body['user'])
