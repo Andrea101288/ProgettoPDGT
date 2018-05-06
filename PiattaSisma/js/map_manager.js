@@ -100,15 +100,18 @@ function getMarkers() {
         var lon = event.fields.lon;
         var latLng = new google.maps.LatLng(lat, lon);
 
+        // Get damage photo link
+        var link = event.fields.damage_photo;
+
         // Format date
         var date = new Date(event.fields.date);
         
         // Add marker text
         var infowindow = new google.maps.InfoWindow({
           content: '<div class="marker_textbox">' +
-                   '<p><b>Time:</b> ' + date + '</p>' +
-                   '<p><b>Photo:</b> ' + "TODO: LINK" + '</p>' +
-                   '<p><b>Description:</b> ' + event.fields.damage_dsc + '</p>' +
+                   '<p><b>Ora:</b> ' + date + '</p>' +
+                   '<p><b>Descrizione:</b> ' + event.fields.damage_dsc + '</p>' +
+                   '<b><a href="http://piattasisma.ddns.net/media/' + link + '">Link alla foto</a></b>' +
                    '</div>'
         });
 

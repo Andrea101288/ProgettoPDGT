@@ -31,9 +31,9 @@
               <input type="radio" name="region" value="italy" checked> Italia<br>
               <input type="radio" name="region" value="usa"> USA<br>
               <input type="radio" name="region" value="latest_world"> Mondo (oggi)<br>
-              <b>Data inizio</b>
-              <input type="date" id="from_day">
-              <b>Data fine</b>
+              <b>Data inizio</b><br>
+              <input type="date" id="from_day"><br>
+              <b>Data fine</b><br>
               <input type="date" id="to_day"><br><br>
               <button type="button" class="btn btn-danger" onclick="getMarkers()">Invia</button>
             </form>

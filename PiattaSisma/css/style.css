@@ -24,6 +24,10 @@ a:hover {
   color: black;
 }
 
+.marker_textbox a {
+  color: #007bff;
+}
+
 .our_textbox {
   font-size: 20px;
 
