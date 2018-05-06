@@ -7,7 +7,8 @@
   }
 
   // Get datas
-  $data['photo'] = $_REQUEST["photo"];
+  $file = $_FILES["photo"]["tmp_name"];
+  $data['photo'] = base64_encode(file_get_contents($file));
   $address = $_REQUEST["address"];
   $city = $_REQUEST["city"];
   $data['dsc'] = $_REQUEST["description"];

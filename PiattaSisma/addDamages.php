@@ -11,7 +11,7 @@
       <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="homePage.php">PiattaSisma</a>
       </nav>
-      <form class="form-signin" method="POST" action="damageCheck.php">
+      <form class="form-signin" method="POST" action="damageCheck.php" enctype="multipart/form-data">
         <h2 class="h3 mb-3 font-weight-normal">Aggiungi una foto e una descrizione</h2>
         <label for="inputPhoto" class="sr-only">Foto</label>
         <input type="file" id="inputPhoto" name="photo" class="form-control m-2" placeholder="Foto" required autofocus>

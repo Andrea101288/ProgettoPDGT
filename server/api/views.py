@@ -1,5 +1,9 @@
 import json
+import base64
+import PIL
+import uuid
 import urllib
+from io import BytesIO
 from datetime import datetime, timedelta
 from dateutil.parser import parse
 from django.core import serializers
@@ -110,6 +114,13 @@ class DamagesView(generic.View):
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
 
+        base64_data = body['photo']
+        decode_image = base64.b64decode(base64_data)
+        img = PIL.Image.open(BytesIO(decode_image))
+
+        photo_name = str(uuid.uuid4()) + '.' + img.format
+        img.save("server/media/" + photo_name, format='PNG')
+
         # Get user
         obj.user = get_object_or_404(User, pk=body['user'])
 
@@ -121,7 +132,7 @@ class DamagesView(generic.View):
         obj.date = datetime.now()
 
         # Get info
-        obj.damage_photo = body['photo']
+        obj.damage_photo = photo_name
         obj.damage_dsc = body['dsc']
 
         obj.save()
