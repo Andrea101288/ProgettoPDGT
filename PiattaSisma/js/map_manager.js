@@ -34,7 +34,7 @@ function getMarkers() {
     var from_day = document.getElementById("from_day").value;
 
     // Fill url
-    var url = 'http://localhost:8000/earthquakes/' + region;
+    var url = 'http://piattasisma.ddns.net/api/earthquakes/' + region;
 
     if(to_day != "")
       url += "?endtime=" + to_day;
@@ -88,7 +88,7 @@ function getMarkers() {
   // Check if user want damages
   if(op2) {
     // Fill url
-    var url = 'http://localhost:8000/damages/';
+    var url = 'http://piattasisma.ddns.net/api/damages/';
 
     // JSON request
     fetch(url)

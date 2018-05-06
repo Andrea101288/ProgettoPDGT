@@ -33,7 +33,7 @@
     $data['lat'] = $res->results[0]->geometry->location->lat;
     $data['lon'] = $res->results[0]->geometry->location->lng;
 
-    $target = "http://localhost:8000/damages/";
+    $target = "http://piattasisma.ddns.net/api/damages/";
 
     // Do POST request to API server
     http_request($target, $data, 'POST');
@@ -62,17 +62,18 @@
 
     if($method == 'POST') {
       curl_setopt($handle, CURLOPT_POSTFIELDS, $jsonData);
+      curl_setopt($handle, CURLOPT_HTTPHEADER, $header);
     }
 
     // Custom header
     $header = array(
-        'Content-Length: ' . strlen($jsonData)
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($jsonData),
     );
 
     // Set stuff
     curl_setopt($handle, CURLOPT_URL, $url);
     curl_setopt($handle, CURLOPT_CUSTOMREQUEST, $method);
-    curl_setopt($handle, CURLOPT_HTTPHEADER, $header);
     curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
 
     $response = curl_exec($handle);
