@@ -108,12 +108,15 @@ class DamagesView(generic.View):
         """
         Respond to POST request at /damages and save data to database
         """
+        # Parse request body
+        try:
+            body_unicode = request.body.decode('utf-8')
+            body = json.loads(body_unicode)
+        except json.JSONDecodeError:
+            return HttpResponse("Bad request 400")
+
         # Create new Damage instance
         obj = Damage()
-
-        # Parse request body
-        body_unicode = request.body.decode('utf-8')
-        body = json.loads(body_unicode)
 
         base64_data = body['photo']
         decode_image = base64.b64decode(base64_data)
