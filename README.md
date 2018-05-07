@@ -18,9 +18,9 @@
 
 ## Descrizione ##
 
-Il progetto _PiattaSisma_ si pone come obbiettivo:
-* Raccogliere dati sismici da diverse fonti e resituirli in un formato standard.
-* Catalogare i danni causati da eventi sismici e dare accesso a questi dati per eventuali studi/interventi.
+Il progetto _PiattaSisma_ si pone come obbiettivi primari:
+* Raccogliere dati sismici da diverse fonti e resituirli in un formato standard
+* Catalogare i danni causati da eventi sismici e dare accesso a questi dati per eventuali studi/interventi
 
 -----------------------------------------------------
 
@@ -32,7 +32,7 @@ Il progetto è composto da 3 obbiettivi principali:
  * Implementazione di due BotTelegram (PHP e Python)
  
 Altri obbiettivi secondari:
- * Sfruttare più linguaggi e tecnologia possibile
+ * Sfruttare più linguaggi e tecnologie possibili
  * Condividere le conoscenze nel Team
  * HAVE FUN!
 
@@ -48,20 +48,20 @@ Lo scenario che abbiamo immaginato è il seguente, ma è importante notare che *
      * [**INGV** - Istituto Nazionale di Geofisica e Vulcanologia](http://cnt.rm.ingv.it/)
      * [**USGS** - United States Geological Survey](https://earthquake.usgs.gov/)
      * [**Data.gov** - U.S. Government’s open data](https://www.data.gov/)
-     * _Nuovi siti possono essere aggiunti facilemente scrivendo un opportuno parser_
 
-   * Gli step dell'algoritmo per l'acquisione dei dati che poi verrano restituiti in formato JSON sono i seguenti:
-     1. Effettuto una richiesta HTTP per accedere ai dati desiderati
-     2. Controllo lo stato della richiesta, in caso sia andata a buon fine (codice 200) continuo
-     3. Inizializzo un oggetto JSON che sarà resituito dalla funzione
-     4. Effettuto il parsing dei dati forniti dal sito e li codifico nel nuovo JSON
-     5. Restituisco il JSON
+   * Gli step dell'algoritmo per l'acquisizione dei dati sui terremoti, che poi verrano restituiti in formato GeoJSON, sono i seguenti:
+     1. Effettuta una richiesta HTTP per accedere ai dati desiderati
+     2. Effettuta il parsing dei dati ricevuti attraverso l'opportuna funziona
+     3. Codifica i dati ottenuti che ci interessano in un nuovo GeoJSON
+     5. Restituisce il GeoJSON
 
-   * Gli step dell'algoritmo della post dei dati sul sito sono i seguenti:
-     1. Decodifica la richiesta ricevuta
-     2. Decodifica immagine in Base_64 e store
-     3. Inizializzo un oggetto damage con i dati ottenuti dalla richiesta
-     4. Store oggetto nel database
+   * Gli step dell'algoritmo della POST dei danni sul sito sono i seguenti:
+     1. Controlla che l'utente che ha mandato la richiesta esista nel database
+     2. Decodifica la richiesta ricevuta
+     3. Decodifica immagine (codificata in [Base64](https://it.wikipedia.org/wiki/Base64))
+     4. Salva il nuovo oggetto danno nel database
+     
+I dati vengono raccolti da diversi siti attraverso dei [parser](https://it.wikipedia.org/wiki/Parsing) che estraggono i dati dal sito e li convertono in un formato standard ([GeoJSON](http://geojson.org)). I siti per cui abbiamo implementato dei parser sono tutti siti di Opendata in formato [QuakeML](https://en.wikipedia.org/wiki/QuakeML) ma pur essendo uno standard presentano ancora piccole differenze che non permettono la corretta interpretazione dei dati. Per questo abbiamo pensato di rendere i parser dei moduli che possono essere intergrati agilmente nel codice senza influire sul resto.
      
 -----------------------------------------------------
 
