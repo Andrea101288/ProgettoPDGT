@@ -2,16 +2,13 @@ sudo: required
 dist: trusty
 matrix: 
  include:
-  -language: python
-	python:
- 	- "3.5"
-	before_install:
- 	- sudo apt-get -y install python3-pip python-dev
- 	- sudo pip3 install -r server/requirements.txt
+ -language: python
+    python: 3.5
+before_install:
+ - sudo apt-get -y install python3-pip python-dev
+ - sudo pip3 install -r server/requirements.txt
 
-  -language: php
-	php:
-	 - "7.0"
-
+ -language: php
+  php: 7.0
 
 
