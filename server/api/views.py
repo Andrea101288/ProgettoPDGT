@@ -6,6 +6,7 @@ import urllib
 from io import BytesIO
 from datetime import datetime, timedelta
 from dateutil.parser import parse
+from math import radians, cos, sin, asin, sqrt
 from django.core import serializers
 from django.views import generic
 from django.http import JsonResponse, HttpResponse
@@ -100,7 +101,28 @@ class DamagesView(generic.View):
         # Serialize all damages
         data = serializers.serialize('json', Damage.objects.all())
         data = json.loads(data)
-        rv['damages'] = data
+
+        # Check if user set latitude, longitude and radius
+        if request.GET.get('lon') is not None and\
+           request.GET.get('lat') is not None and\
+           request.GET.get('rad') is not None:
+
+            # Temporary object
+            tmp = []
+
+            # Get position
+            lon = float(request.GET.get('lon'))
+            lat = float(request.GET.get('lat'))
+            rad = float(request.GET.get('rad'))
+
+            # Check all damages if in range
+            for damage in data:
+                if self.is_in_range(lon, lat, damage['fields']['lon'], damage['fields']['lat'], rad):
+                    tmp.append(damage)
+
+            rv['damages'] = tmp
+        else:
+            rv['damages'] = data
 
         return JsonResponse(rv)
 
@@ -141,6 +163,25 @@ class DamagesView(generic.View):
 
         obj.save()
         return HttpResponse('OK')
+
+    def is_in_range(self, lon1, lat1, lon2, lat2, radius):
+        """
+        Calculate the great circle distance between two points
+        on the earth (specified in decimal degrees)
+        """
+        # Convert decimal degrees to radians
+        lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+
+        # Haversine formula
+        dlon = lon2 - lon1
+        dlat = lat2 - lat1
+        a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+        c = 2 * asin(sqrt(a))
+
+        # Distance between 2 points
+        km = 6371 * c
+
+        return km <= radius
 
     @csrf_exempt
     def dispatch(self, *args, **kwargs):
