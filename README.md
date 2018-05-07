@@ -53,7 +53,7 @@ Il progetto è composto da 3 punti principali:
 
 * Implementazione di una piattaforma Web (HTML, PHP, JS, CSS) che utilizza le API descritte al punto precedente per la ricerca tra i vari OpenData e il posizionamento dei dati geografici sulla mappa fornita da Google Maps. La piattafroma è stata realizzata in PHP ed è composta dai seguesti file principali:
     * **Index**: pagina di benvenuto nella piattaforma dove si effettua il login o la registrazione
-    * **Register**: acquiscisce i dati richiesti dal utente che verranno verificati dalla pagina "**RegisterCheck**". Se questi passano i controlli allora l'utente potrà entrare.
+    * **Register**: acquiscisce i dati richiesti dal utente che verranno verificati dalla pagina **RegisterCheck**. Se questi passano i controlli allora l'utente potrà entrare.
     * **Login**: semplice pagina che permette il login degli utenti registrati attaverso **LoginCheck** che verfica la corettezza delle credenzali immesse.
     * **homePage** la pagina principale della piattaforma dove appare una mappa che sarà popolata dai vari eventi restituiti dal API. Una serie di filtri permette di effettuare ricerche più o meno precise in base alla posizone o al tempo.
     * **ContactUs**: raccoglie i contatti dei creatori della piattaforma.
