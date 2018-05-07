@@ -2,6 +2,8 @@ token.php
 settings.php
 db.sqlite3
 db_settings.py
+
 static/
+media/
 
 __pycache__
