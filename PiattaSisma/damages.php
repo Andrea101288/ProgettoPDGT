@@ -1,6 +1,7 @@
 <html>
   <?php
     session_start();
+
     if(!isset($_SESSION['username'])) {
       header("Location: login.php");
     }
@@ -26,6 +27,25 @@
           </div>
         </nav>
         <main role="main" class="inner cover col-md-9 col-lg-10">
+        <?php
+          require_once(dirname(__FILE__) . '/httpRequest.php');
+          $res = http_request("http://piattasisma.ddns.net/api/damages/");
+
+          for($i = 0; $i < count($res->damages); $i++) {
+            $photo_link = "http://piattasisma.ddns.net/media/".$res->damages[$i]->fields->damage_photo;
+            $photo_dsc = $res->damages[$i]->fields->damage_dsc;
+
+            echo "<div class='responsive p-2'>";
+            echo "<div class='gallery'>";
+            echo "<a target='_blank' href='".$photo_link."'>";
+            echo "<img src='".$photo_link."'>";
+            echo "</a>";
+            if($photo_dsc != "")
+              echo "<div class='desc'>".$photo_dsc."</div>";
+            echo "</div>";
+            echo "</div>";
+          } 
+        ?>
         </main>
       </div>
     </div>
