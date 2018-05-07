@@ -58,17 +58,16 @@ Il progetto è composto da 3 punti principali:
     * **homePage** la pagina principale della piattaforma dove appare una mappa che sarà popolata dai vari eventi restituiti dal API. Una serie di filtri permette di effettuare ricerche più o meno precise in base alla posizone o al tempo.
     * **ContactUs**: raccoglie i contatti dei creatori della piattaforma.
     * **AboutUs**: dove si può leggere una piccola descrizione del progetto e il motivo che ci hanno portato a realizarlo.
-    * **Damages**: galleria dei danni  
-    * **AddDamage**: dove si può caricare nuovi danni che verranno validati attraverso **DamageCheck**
+    * **Damages**: galleria dei danni.
+    * **AddDamage**: dove si può caricare nuovi danni che verranno validati attraverso **DamageCheck**.
 
 * Implementazione di due BotTelegram i quali usano, oltre alle API di Telegram, le API implementate per l'acquisizione di dati. Possono eseguire i seguenti comandi:
 
   * **PiattaSismaBot** (Bot per l'utente)
     * _/earthquakes_ permette di ricevere la posizione e una descrizione dei terremoti avvenuti nel raggio di 10 km da una location specificata dall'utente.
     * _/damage_ permette di segnalare dei danni, causati da un certo terremoto, con una foto con posizione e eventuale descrizione.
-    * _/info_ restituisce informazioni generiche sul Bot
-    * _/help_ restituisce dettagli sui comandi e come utilizzarli
+    * _/info_ restituisce informazioni generiche sul Bot.
+    * _/help_ restituisce dettagli sui comandi e come utilizzarli.
 
   * **TechSismaBot** (Bot per responsabili o dipendenti di enti pubblici che seguono le pratiche sismiche)
-    * _/requestNotification_ che permette di ricevere in tempo reale le descrizioni e le foto di danni postati da qualche utente in modo tal da effettuare in caso un sopralluogo.
-   
+    * _/get_damages che permette di cercare danni in un raggio di 10km da una posizione.   
