@@ -118,7 +118,9 @@ I comandi che il bot mette a disposizione sono i seguenti:
 -----------------------------------------------------
 
 ### Links e riferimenti ###
- * Link Client web:
- * Link PiattaSismaBot:
- * Link TechSismaBot:
+ * Link Client web: http://piattasisma.ddns.net
+ * Link API terremoti (esempio Italia): http://piattasisma.ddns.net/api/earthquakes/italy
+ * Link API danni (esempio): http://piattasisma.ddns.net/api/damages
+ * Link PiattaSismaBot: https://telegram.me/PDGTESbot
+ * Link TechSismaBot: https://telegram.me/TechSismaBot
  * Link alla documentazione del API: https://app.swaggerhub.com/apis/RadeAndry9588/PiattaSismaAPI/1.0.0-oas3
