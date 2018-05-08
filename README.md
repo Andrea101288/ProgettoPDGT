@@ -62,6 +62,7 @@ Lo scenario che abbiamo immaginato è il seguente, ma è importante notare che *
      4. Salva il nuovo oggetto danno nel database
      
 I dati vengono raccolti da diversi siti attraverso dei [parser](https://it.wikipedia.org/wiki/Parsing) che estraggono i dati dal sito e li convertono in un formato standard ([GeoJSON](http://geojson.org)). I siti per cui abbiamo implementato dei parser sono tutti siti di Opendata in formato [QuakeML](https://en.wikipedia.org/wiki/QuakeML) ma pur essendo uno standard presentano ancora piccole differenze che non permettono la corretta interpretazione dei dati. Per questo abbiamo pensato di rendere i parser dei moduli che possono essere intergrati agilmente nel codice senza influire sul resto. Per questioni di dimensioni di dati richiesti tramite API abbiamo optato inserire di default un arco temporale di 30 gg poichè abbiamo notato che aumentando molto il numero di giorni le richieste comportano tempi importanti e soprattutto alcuni siti hanno un limite massimo di dati da trasmettere.
+
 -----------------------------------------------------
 
 ### PiattaSisma (Client Web) ###
