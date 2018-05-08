@@ -45,9 +45,11 @@ def handle(msg):
         r = requests.get(url).json()
 
         for damage in r['damages']:
-            msg = "*Descrizione:* " + damage['fields']['damage_dsc'] + "\n" +\
-                  "*Link foto:* " + "http://piattasisma.ddns.net/media/" + damage['fields']['damage_photo'] + "\n"
-            bot.sendMessage(chat_id, msg, parse_mode="Markdown")
+            caption = damage['fields']['damage_dsc']
+            url = "http://piattasisma.ddns.net/media/" + damage['fields']['damage_photo']
+
+            # Send all stuff
+            bot.sendPhoto(chat_id, url, caption)
             bot.sendLocation(chat_id, damage['fields']['lat'], damage['fields']['lon'])
 
         # Return to state 0
