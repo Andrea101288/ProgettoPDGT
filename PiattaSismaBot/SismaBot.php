@@ -126,6 +126,9 @@ while (1){
             }
         }else if (isset($datas->result[0]->message->location) and $states[(string)$chat_id] == 1) {
             $eartquakes = getEarthquakes($datas, $token);
+
+            // Return to state 0
+            $states[(string)$chat_id] = 0;
         }else if (isset($datas->result[0]->message->photo) and $states[(string)$chat_id] == 2) {
             // Set the counter to get the last picture in the array
             $last_position = count($datas->result[0]->message->photo) - 1;
@@ -173,6 +176,9 @@ while (1){
                 http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($msg));
             }
 
+            // Return to state 0
+            $states[(string)$chat_id] = 0;
+        } else {
             // Return to state 0
             $states[(string)$chat_id] = 0;
         }
