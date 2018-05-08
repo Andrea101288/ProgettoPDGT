@@ -1,11 +1,11 @@
 from django.contrib import admin
-from .models import Damage, User, NotificationArea
+from .models import Damage, User
 from django.utils.translation import ugettext_lazy as _
 
 
 class DamageAdmin(admin.ModelAdmin):
     list_display = ('user', 'lat', 'lon', 'date')
-    search_fields = ('user', 'date', 'earthquake_id')
+    search_fields = ['user__username', 'dat']
 
 
 class UserAdmin(admin.ModelAdmin):
@@ -34,11 +34,5 @@ class UserAdmin(admin.ModelAdmin):
     disable_account.short_description = _("disable_accounts")
 
 
-class NotificationAreaAdmin(admin.ModelAdmin):
-    list_display = ['owner']
-    search_fields = ['owner']
-
-
 admin.site.register(Damage, DamageAdmin)
 admin.site.register(User, UserAdmin)
-admin.site.register(NotificationArea, NotificationAreaAdmin)

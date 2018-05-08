@@ -34,15 +34,3 @@ class User(models.Model):
     # Set boolean icon and description
     is_enabled.boolean = True
     is_enabled.short_description = _("enabled")
-
-
-class NotificationArea(models.Model):
-    # Owner username
-    owner = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name=_("username"))
-
-    # Position
-    lat = models.FloatField(verbose_name=_("latitude"), blank=True)
-    lon = models.FloatField(verbose_name=_("longitude"), blank=True)
-
-    # Search radius
-    rad = models.FloatField(verbose_name=_("radius"), blank=True)
