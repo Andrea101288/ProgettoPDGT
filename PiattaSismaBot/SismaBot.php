@@ -163,9 +163,15 @@ while (1){
             checkUser($user_id);
             $datasToSend[$user_id]['user'] = (string)$user_id;
 
-            http_request("http://piattasisma.ddns.net/api/damages/", $datasToSend[$user_id], 'POST');
-            $msg = "Ottimo Lavoro! ".$handsUp." Caricamento del danno completato!";
-            http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($msg));
+            $r = http_request("http://piattasisma.ddns.net/api/damages/", $datasToSend[$user_id], 'POST');
+
+            if($r != "Error") {
+                $msg = "Ottimo Lavoro! ".$handsUp." Caricamento del danno completato!";
+                http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($msg));
+            } else {
+                $msg = "Si è verificato un errore.\nSi prega di riprovare.";
+                http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($msg));
+            }
 
             // Return to state 0
             $states[(string)$chat_id] = 0;
