@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class DamageAdmin(admin.ModelAdmin):
     list_display = ('user', 'lat', 'lon', 'date')
-    search_fields = ['user__username', 'dat']
+    search_fields = ['user__username', 'date']
 
 
 class UserAdmin(admin.ModelAdmin):
