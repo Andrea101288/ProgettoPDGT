@@ -7,12 +7,8 @@
 * Primo appello sessione estiva 2017/2018
 
 ### Alunni: ###
-* Andrea Mancini
-  * Matricola: 276435
-  * Username Github: Andrea101288
-* Dawid Węglarz
-  * Matricola: 277268
-  * Username Github: Radeox
+* [Andrea Mancini](http://github.com/Andrea101288)
+* [Dawid Węglarz](http://github.com/Radeox)
 
 -----------------------------------------------------
 
