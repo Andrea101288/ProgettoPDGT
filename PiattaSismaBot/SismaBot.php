@@ -89,7 +89,7 @@ while (1){
                 // Bot Commands
                 case "/start":
                     // send the welcome message and a little explanation of the Bot
-                    $msg = "Ciao sono".$earth." SismaBot ".$earth."\nGrazie a me puoi ottenere le location e i dati di terremoti in un raggio di 10 km da un luogo da te scelto!".$handOk."\nSono in grado di inviarti descrizioni e luoghi in cui si è verificato un sisma in qualunque parte del mondo!\n(o quasi".$teeth.")\nPer poter effettuare la ricerca ho bisogno di sapere dove ti trovi, puoi dirmelo semplicemente premendo sul tasto invia allegato selezionando la posizione\n(ricordati di attivare il GPS".$tongue."..)\n\nPer maggiori informazioni digita il comando /help ".$sos."";
+                    $msg = "Ciao sono".$earth." SismaBot ".$earth."\nGrazie a me puoi ottenere le location e i dati di terremoti in un raggio di 30 km da un luogo da te scelto!".$handOk."\nSono in grado di inviarti descrizioni e luoghi in cui si è verificato un sisma in qualunque parte del mondo!\n(o quasi".$teeth.")\nPer poter effettuare la ricerca ho bisogno di sapere dove ti trovi, puoi dirmelo semplicemente premendo sul tasto invia allegato selezionando la posizione\n(ricordati di attivare il GPS".$tongue."..)\n\nPer maggiori informazioni digita il comando /help ".$sos."";
                     http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($msg)."");
                     break;
 
@@ -108,7 +108,7 @@ while (1){
                     break;
 
                 case "/help":
-                    $helpMsg = "".$earth." SismaBot ".$earth." a tua disposizione! Ecco a te i comandi:\n1) /earthquakes ti permette di conoscere descrizione e località di ogni terremoto nel raggio di 10 km dalla zona da te scelta inviatami condividendo la location\n2) /damage premette di inviare posizione e descrizione di danni provocati da terremoti sull'apposito sito www.Piattasisma.com dove le utorità poi procederanno alla visione\n3) /info per avere tutte le informazioni sul Bot e sul sito collegato ad esso\n4) /help per sapere come utilizzare le funzionalità del bot";
+                    $helpMsg = "".$earth." SismaBot ".$earth." a tua disposizione! Ecco a te i comandi:\n1) /earthquakes ti permette di conoscere descrizione e località di ogni terremoto nel raggio di 30 km dalla zona da te scelta inviatami condividendo la location\n2) /damage premette di inviare posizione e descrizione di danni provocati da terremoti sull'apposito sito www.Piattasisma.com dove le utorità poi procederanno alla visione\n3) /info per avere tutte le informazioni sul Bot e sul sito collegato ad esso\n4) /help per sapere come utilizzare le funzionalità del bot";
                     // Send a message to the user explaining how to use the Bot Commands
                     http_request("https://api.telegram.org/bot{$token}/sendMessage?chat_id=".$chat_id."&text=".urlencode($helpMsg)."");
                     break;

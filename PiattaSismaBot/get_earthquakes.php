@@ -6,9 +6,9 @@ function getEarthquakes($UserDatas, $token){
     $lat = $UserDatas->result[0]->message->location->latitude;
     $long = $UserDatas->result[0]->message->location->longitude;
     $chat_id = $UserDatas->result[0]->message->chat->id;
-    $earthquakes_datas = http_request("http://piattasisma.ddns.net/api/earthquakes/italy?lon=".$long."&lat=".$lat."&rad=5");
+    $earthquakes_datas = http_request("http://piattasisma.ddns.net/api/earthquakes/italy?lon=".$long."&lat=".$lat."&rad=30");
     
-    // for each earthquakes i find in a 10km radius, i get the datas which i need to send to the user the description and location
+    // for each earthquakes i find in a 30km radius, i get the datas which i need to send to the user the description and location
     for($i = 0; $i < count($earthquakes_datas->features); $i++) {
         
         $lat = $earthquakes_datas->features[$i]->geometry->coordinates[1];
