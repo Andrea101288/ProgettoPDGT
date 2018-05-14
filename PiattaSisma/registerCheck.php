@@ -11,13 +11,21 @@
   mysqli_select_db($conn, $database) or die("Error accessing user table");
 
   // Check if user already exist in database
-  $sql = "SELECT * FROM api_user WHERE username = '".$user_username."'";
-  $result = mysqli_query($conn, $sql);
+  $sql = $conn->prepare("SELECT * FROM api_user WHERE username = ?");
+
+  // Bind paramters
+  $sql->bind_param('s', $user_username);
+
+  // Execute the query
+  $sql->execute();
+
+  // Get results
+  $result = $sql->get_result();
 
   // Start session to save logged user
   session_start();
 
-  if (mysqli_num_rows($result) > 0) {
+  if(mysqli_num_rows($result) > 0) {
     // User found: can't register 
     $_SESSION['wrong_login'] = 1;
     mysqli_close($conn);
@@ -28,10 +36,19 @@
   }
   else {
     // Insert user in database
-    $sql = "INSERT INTO api_user VALUES('".$user_username."', '".$user_password."', '".$user_email."', 1 );";
+    $sql = $conn->prepare("INSERT INTO api_user VALUES(?, ?, ?, 1 );");
+
+    // Bind paramters
+    $sql->bind_param('sss', $user_username, $user_password, $user_email);
+
+    // Execute the query
+    $sql->execute();
+
+    // Get results
+    $result = $sql->get_result();
 
     // Check if user was correctly registred
-    if (!mysqli_query($conn, $sql)) {
+    if(mysqli_num_rows($result) > 0) {
       $_SESSION['wrong_login'] = 1;
 
       // Redirect user to register page

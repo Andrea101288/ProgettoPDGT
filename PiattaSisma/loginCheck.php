@@ -10,8 +10,16 @@
   mysqli_select_db($conn, $database) or die("Error accessing user table");
 
   // Check if user exist in database
-  $sql = "SELECT * FROM api_user WHERE '".$user_username."' = username AND '".$user_password."' = password;";
-  $result = mysqli_query($conn, $sql);
+  $sql = $conn->prepare("SELECT * FROM api_user WHERE username = ? AND password = ?;");
+
+  // Bind paramters
+  $sql->bind_param('ss', $user_username, $user_password);
+
+  // Execute the query
+  $sql->execute();
+
+  // Get results
+  $result = $sql->get_result();
 
   // Start session to save logged user
   session_start();

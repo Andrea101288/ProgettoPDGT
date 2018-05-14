@@ -19,8 +19,16 @@
   mysqli_select_db($conn, $database) or die("Error accessing user table");
 
   // Check if user exists in db
-  $sql = "SELECT * FROM api_user WHERE '".$_SESSION['username']."' = username;";
-  $result = mysqli_query($conn, $sql);
+  $sql = $conn->prepare("SELECT * FROM api_user WHERE username = ?;");
+
+  // Bind paramters
+  $sql->bind_param('s', $_SESSION['username']);
+
+  // Execute the query
+  $sql->execute();
+
+  // Get results
+  $result = $sql->get_result();
 
   // Close connection to db
   mysqli_close($conn);
