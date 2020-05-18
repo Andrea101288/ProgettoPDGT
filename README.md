@@ -21,7 +21,7 @@ Il progetto _PiattaSisma_ si pone come obbiettivi primari:
 ## English ##
 
 The _PiattaSisma_ project stands as primary objectives:
-* Collect seismic data from different sources and return them in a standard format
+* Collect sismic data from different sources and return them in a standard format
 * Catalog the damage caused by seismic events and give access to these data for any studies / interventions
 
 -----------------------------------------------------
